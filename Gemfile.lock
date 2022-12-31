@@ -1,0 +1,21 @@
+PATH
+  remote: .
+  specs:
+    marko (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.16.3)
+    rake (13.0.6)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  marko!
+  minitest (~> 5.0)
+  rake (~> 13.0)
+
+BUNDLED WITH
+   2.4.1

@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "marko"
+include Marko
+
+command = ARGV.shift
+case command
+when nil
+  CLI.banner
+when /(n|new)/
+  dir = ARGV.shift
+  CLI.punch(dir)
+when /(d|demo)/
+  CLI.punch_demo
+when /(c|compile)/
+  CLI.compile
+else
+  CLI.banner
+end
