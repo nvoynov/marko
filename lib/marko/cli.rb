@@ -7,8 +7,6 @@ include Marko::Services
 module Marko
   module CLI
     extend self
-    extend Forwardable
-    def_delegator :StoragePlug, :plugged, :storage
 
     def punch(dir, args = ARGV)
       if Dir.exist?(dir)
@@ -55,6 +53,10 @@ module Marko
 
     protected
 
+    def storage
+      StoragePlug.plugged
+    end
+
     def pulse_verbose(events, payload)
       case events
       when :stage
@@ -89,9 +91,9 @@ module Marko
     BANNER = <<~EOF.freeze
       \s    ^__^
       \s    (oo)\_______
-      \s    (__)\       )\/\
-      \s\s~ Marko v0.1.3 ~ aka markup compiler
-      \s\shome https://github.io/nvoynov/marko
+      \s    (__)\       )\/\\
+      \s  ~ Marko v0.1.3 ~ aka markup compiler
+      \s  home https://github.io/nvoynov/marko
     EOF
 
     PARSER = {

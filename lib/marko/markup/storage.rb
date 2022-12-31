@@ -1,6 +1,7 @@
 # frozen_string_literal: true
-
+require "psych"
 require 'fileutils'
+require "securerandom"
 require_relative "../storage"
 
 module Marko
@@ -59,8 +60,21 @@ module Marko
         marko_directories.all?{ Dir.exist? _1 }
       end
 
+      # @see Marko::Strorage#artifact
+      def artifact
+        return Psych.load_file(ARTIFACT).freeze if File.exist?(ARTIFACT)
+        art = Artifact.new(SecureRandom.uuid,
+          'Marko Artifact',
+          'tt/artifact.md.tt',
+          'tt/marko-artifact.md'
+        )
+        File.write(ARTIFACT, Psych.dump(art))
+        art.freeze
+      end
+
       protected
 
+      ARTIFACT = 'marko.yml'.freeze
       SOURCE = 'src'.freeze
       BINARY = 'bin'.freeze
       SAMPLE = 'tt'.freeze

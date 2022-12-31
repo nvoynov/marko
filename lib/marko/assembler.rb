@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "forwardable"
 require_relative "gadgets"
 require_relative "config"
 require_relative "loader"
@@ -10,8 +9,6 @@ module Marko
 
   # The strategy for assembling sources into artifact tree
   class Assembler < Service
-    extend Forwardable
-    def_delegator :ValidatorPlug, :plugged, :validator
 
     class Failure # < StandardError
       attr_reader :errors
@@ -76,6 +73,7 @@ module Marko
     end
 
     def validate(tree)
+      validator = ValidatorPlug.plugged
       validator.(tree)
     end
 

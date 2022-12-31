@@ -37,9 +37,9 @@ class TestDecorator < Minitest::Test
   end
 
   def test_meta
-    sample = "------ -----\nid     id\nauthor spec\n"
+    sample = "key | value\n--- | -----\nid | id\nauthor | spec\n"
     assert_equal sample, decor(id: 'id', author: 'spec').meta
-    sample = "-- -----\nid id\n"
+    sample = "key | value\n--- | -----\nid | id\n"
     assert_equal sample, decor(id: 'id').meta
   end
 

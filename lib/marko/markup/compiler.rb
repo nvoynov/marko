@@ -1,15 +1,13 @@
 # frozen_string_literal: true
 
-require "forwardable"
 require "erb"
 require_relative "../compiler"
+require_relative "../config"
 
 module Marko
   module Markup
 
     class Compiler < Marko::Compiler
-      extend Forwardable
-      def_delegator :StoragePlug, :plugged, :storage
 
       # @see Marko::Compliler#call
       def call(tree, template, filename, &block)
@@ -20,6 +18,7 @@ module Marko
       protected
 
       def compile
+        storage = StoragePlug.plugged
         erbgen = ERB.new(@template, trim_mode: '-')
         payload = @tree.map{|n| Decorator.new(n)}
         storage.write(@filename){|f|
@@ -31,7 +30,6 @@ module Marko
         }
         @filename
       end
-
     end
 
   end

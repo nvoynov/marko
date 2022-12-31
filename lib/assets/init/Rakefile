@@ -1,0 +1,99 @@
+# frozen_string_literal: true
+
+require 'marko'
+require 'marko/markup'
+
+namespace :marko do
+
+  # @todo pandoc: bin/arfifact.docx: openBinaryFile: permission denied (Permission denied)
+  #   Success! Find the artifact in bin/arfifact.docx
+  #
+  desc 'Publish the artifact'
+  task :publish do
+    output = 'bin/arfifact'
+    `marko c -o #{output}.md`
+    pandoc = `pandoc #{output}.md -o #{output}.docx`
+    File.delete("#{output}.md")
+    puts "Success! Find the artifact in #{output}.docx"
+  end
+
+  desc 'Print table of contents'
+  task :toc, :query do |t, args|
+    args.with_defaults(query: '')
+    tree = Marko.assemble
+    query = args.query
+    unless query.empty?
+      tree = tree.find_node(query)
+      unless tree
+        puts "Nothing to be printed!"
+        return
+      end
+      tree.orphan!
+    end
+    tree.each do |n|
+      if n.root?
+        puts "% #{n.title}" if n.root?
+        next
+      end
+      title = n.title.empty? ? n.id : n.title
+      puts '#' * n.nesting_level + " #{title} ##{n.id}"
+    end
+  end
+
+  desc 'Print @@todo'
+  task :todo do
+    tree = Marko.assemble
+    tree.to_a.drop(1)
+      .select{|n| n.body =~ /@@todo/}
+      .each{|n|
+        list = n.body
+          .scan(/@@todo[^\n]*\n/)
+          .map{"  #{_1}"}
+          .join(?\n)
+        puts n[:origin]
+        puts list
+        puts
+      }
+  end
+
+  def datestamp
+    Time.new.strftime('%Y%m%d')
+  end
+
+  def timestamp
+    Time.new.to_s
+  end
+
+  desc 'Punch meeting munutes'
+  task :mm, :extra do |t, args|
+    args.with_defaults(extra: '')
+    extra = args.extra
+    Dir.mkdir('mm') unless Dir.exist?('mm')
+    body = MINUTES % timestamp
+    name = "minutes-#{datestamp}#{extra.empty? ? '' : ?_ + extra}"
+    name = File.join('mm', name)
+    errm = "Minutes exists already. Maybe you can provide [EXTRA]?"
+    fail errm if File.exist?(name)
+    File.write(name, body)
+  end
+
+  MINUTES = <<~EOF.freeze
+    %% Meeting Minutes %s
+
+    # Attendants
+
+    1.
+    2.
+
+    # Questions
+
+    1.
+    2.
+
+    # Decisions
+
+    1.
+    2.
+  EOF
+
+end

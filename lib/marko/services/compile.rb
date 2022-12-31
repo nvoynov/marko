@@ -1,15 +1,11 @@
-require "forwardable"
 require_relative "../gadgets"
 require_relative "../assembler"
 
 module Marko
   module Services
 
+    # Compitation service
     class Compile < Service
-      extend Forwardable
-      def_delegator :StoragePlug, :plugged, :storage
-      def_delegator :CompilerPlug, :plugged, :compiler
-
       def initialize(tree: nil, template: '', filename: '', &block)
         @tree = MustbeTreeNode.(tree) if tree
         @template = MustbeString.(template)
@@ -22,6 +18,8 @@ module Marko
       end
 
       def call
+        storage = StoragePlug.plugged
+        compiler = CompilerPlug.plugged
         erb = storage.content(@template)
         @tree = Assembler.(&@block) unless @tree
         compiler.(@tree, erb, @filename, &@block) # => filename

@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 require "delegate"
-require "forwardable"
 
 module Marko
   module Markup
 
     class Decorator < SimpleDelegator
-      extend Forwardable
-      def_delegator :MacroProcPlug, :plugged, :macroproc
+
+      def initialize(obj)
+        super(obj)
+        @macroproc = MacroProcPlug.plugged
+      end
 
       def find_node(ref)
         obj = super(ref)
@@ -40,7 +42,6 @@ module Marko
       end
 
       def meta
-        return '' unless super.any?
         hsh = super.dup
         hsh[:id] = id # full id will be there
         hsh.delete(:order_index)
@@ -48,13 +49,14 @@ module Marko
         hsh.delete(:origin)
         len = hsh.keys.map(&:length).max
         [].tap{|ary|
-          ary << '-' * len + ' -----'
-          hsh.each{|k,v| ary << "#{k.to_s.ljust(len)} #{v}"}
+          ary << "key | value"
+          ary << "--- | -----"
+          hsh.each{|k,v| ary << "#{k} | #{v}"}
         }.join(?\n) + ?\n
       end
 
       def body
-        text = macroproc.process(super, self)
+        text = @macroproc.process(super, self)
         text.strip + ?\n
       end
     end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "gadgets"
+require_relative "artifact"
 
 module Marko
 
@@ -25,9 +26,11 @@ module Marko
       fail "the abstract method must be overriden"
     end
 
-    def template(name)
+    # @return [Artifact] artifact settings
+    def artifact
       fail "the abstract method must be overriden"
     end
+
   end
 
 end
