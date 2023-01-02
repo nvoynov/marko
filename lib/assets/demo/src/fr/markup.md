@@ -1,7 +1,7 @@
 # Source Markup
 {{id: .markup, parent: fr}}
 
-The main and only entity in the system is [[fr.node]]. The system shall provide the following abilities for the entity:
+The main and only entity in the system is [[fr.treenode]]. The system shall provide the following abilities for the entity:
 
 @@list
 
@@ -29,13 +29,13 @@ Where:
 
 The system shall provide function to getting all sources files from project repository.
 
-@@todo project repository
+@@todo define project repository
 
 ## Parse Source
 
 The system shall provide the function to parse source file.
 
-During the parsing process the system must record source information within the node parsed, such as origin file name and the number of line inside the origin where the node begins. This information must be stored inside metadata as [[fr.node.orig]].
+During the parsing process the system must record source information within the node parsed, such as origin file name and the number of line inside the origin where the node begins. This information must be stored inside metadata as [[fr.treenode.orig]].
 
 __Input__
 
@@ -51,7 +51,7 @@ node      Node   0..n node parsed
 
 ## Assemble Tree
 
-The system shall provide the function to assemble the artifact tree. The artifact tree is assembled based on [[fr.node.tree]].
+The system shall provide the function to assemble the artifact tree. The artifact tree is assembled based on [[fr.treenode.tree]].
 
 @@todo The assemblage algorithm, errors handler
 
@@ -103,7 +103,7 @@ root      Node   1    root node
 
 ## Checking Tree
 
-The system shall provide the function to check assembled tree for errors related to assembling tree based on [[fr.node.tree]]. The system must check the following errors:
+The system shall provide the function to check assembled tree for errors related to assembling tree based on [[fr.treenode.tree]]. The system must check the following errors:
 
 - `duplicate id`, finds two or more nodes that share the same id;
 - `unknown parent`, finds nodes that have `parent` metadata, but parent not found in the tree;

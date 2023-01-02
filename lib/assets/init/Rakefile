@@ -47,8 +47,9 @@ namespace :marko do
       .select{|n| n.body =~ /@@todo/}
       .each{|n|
         list = n.body
-          .scan(/@@todo[^\n]*\n/)
-          .map{"  #{_1}"}
+          .scan(/@@todo.*$/)
+          .map{_1.sub(/@@todo/, '')}
+          .map{"  #{_1.strip}"}
           .join(?\n)
         puts n[:origin]
         puts list

@@ -1,13 +1,13 @@
-% Clerq Demo
+% Marko Demo Project
 
 # Overview
 
-This project is an example of developing bulky technical artifacts with Clerq in a "docs-as-code manner". It also serves as a sandbox for testing and features development.
+This project is an example of developing bulky technical artifacts with Marko Markup Compiler. It also serves as a sandbox for testing and features development.
 
 # Usage
 
-Run `clerq build -v` to assemble the tree, check for errors, and build the artifact.
+Run `$ marko` to see command-line interface
 
-Run `thor clerq:release` to build output deliverables
+Run `$ rake marko:publish` to publish the aritfact
 
-Run `thor clerq:draft` to build draft of deliverables
+Run `$ rake -T` to see other custom interface

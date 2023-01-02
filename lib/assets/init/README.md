@@ -11,8 +11,8 @@ This project has the following structure:
 - [src/](src/) - markup sources
 - [tt/](tt/) - templates
 - [marko.yml](marko.yml) - project configuration
-- [marko.thor](marko.thor) - Thor automation
-- [README.md](README.md) - this file
+- [Rakefile](Rakefile) - Rakefile
+- [README.md](README.md)
 
 # Interface
 

@@ -115,7 +115,7 @@ The TreeNode.body can include macros. The most helpful one is `[[reference.id]]`
 
 ### Templates
 
-Marko uses templates placed under the `tt` folder to compile sources into artifacts. You can use and customize the default one or design your own for particular purposes. It's just pure ERB, where Clerq enumerates TreeNodes and renders the node output.
+Marko uses templates placed under the `tt` folder to compile sources into artifacts. You can use and customize the default one or design your own for particular purposes. It's just pure ERB, where Marko enumerates TreeNodes and renders the node output.
 
 ```
 <%= @node.header %>
@@ -126,18 +126,16 @@ Marko uses templates placed under the `tt` folder to compile sources into artifa
 The `marko.yml` configuration file sets the building process's default template and other default values.
 
 ```yml
---- ruby/struct:Marko::Artifact
-title: Clerq Artefact
-filename: clerq-artefact
-template: artefact.md.tt
-bin: bin
-src: src
-tt: tt
+--- !ruby/struct:Marko::Artifact
+id: ed863484-243f-4d46-8012-4b148f8c2910
+title: Marko Artifact
+template: tt/artifact.md.tt
+filename: tt/marko-artifact.md
 ```
 
 ### Automation
 
-Following quick example that assembles tree, removes TreeNode with id == 'hint', and compiles the tree. You can also see Rakefile for other examples.
+Following quick example will assemble tree, remove TreeNode with id == 'hint', and compile the tree. You can also see Rakefile for other examples.
 
 ```ruby
 require 'marko'

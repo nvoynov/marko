@@ -26,33 +26,6 @@ describe CLI do
   end
 
   describe '#compile' do
-    # @todo extract test content into helper?
-    let(:proper) {
-      <<~EOF
-        # Intro
-        ## Purpose
-        ## Overview
-        # Use Cases
-        {{id: uc}}
-        # UC01
-        {{parent: uc}}
-      EOF
-    }
-
-    let(:faulty_markup) {
-      <<~EOF
-        % Title
-        ## a
-      EOF
-    }
-
-    let(:faulty_tree) {
-      <<~EOF
-        # User Stories
-        ##
-        I want one [[lost]]
-      EOF
-    }
 
     it 'must require Marko project' do
       Tempbox.() {
@@ -63,7 +36,7 @@ describe CLI do
 
     it 'must compile concise/verbose' do
       Sandbox.() {
-        File.write('src/proper1.md', proper)
+        punch_sample('proper.md')
         capture_io {
           CLI.compile([])
           CLI.compile(%w(-v))

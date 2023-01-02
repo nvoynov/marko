@@ -89,11 +89,8 @@ module Marko
     #          ||----w |
     #          ||     ||
     BANNER = <<~EOF.freeze
-      \s    ^__^
-      \s    (oo)\_______
-      \s    (__)\       )\/\\
-      \s  ~ Marko v0.1.3 ~ aka markup compiler
-      \s  home https://github.io/nvoynov/marko
+      ~ Marko v0.1.3 ~ Markup Compiler
+      ~ https://github.io/nvoynov/marko
     EOF
 
     PARSER = {

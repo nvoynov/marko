@@ -1,15 +1,14 @@
-# Clerq Gem interface
-{{id: .gem}}
+# Gem interface
+{{id: .gem, parent: ui}}
 
-The system shall provide Ruby Gem with the following interface
+The system shall provide Ruby Gem with the following functions
 
-```ruby
-# Assemble the artifact tree
-# @return [Node] root node
-def assembly
-end
+@@list
 
-# @param template
-def build(template, filename)
-end
-```
+## Marko.assemble
+
+@@todo define Marko.assemble
+
+## Marko.compile
+
+@@todo define Marko.compile

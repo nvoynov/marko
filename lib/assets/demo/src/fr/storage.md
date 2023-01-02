@@ -1,5 +1,5 @@
 # Sources Storage
-{{id: .storage}}
+{{id: .storage, parent: fr}}
 
 The system shall provide a storage for artifact sources. The storage must provide the following features:
 
