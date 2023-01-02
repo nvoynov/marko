@@ -1,6 +1,6 @@
 require_relative "test_helper"
 
-# exe/marko when gem is installed
+# exe/marko when gem is installed, sort of dry-run
 describe 'exe/marko' do
   it 'must compile|c' do
     Sandbox.() { system "marko compile" }

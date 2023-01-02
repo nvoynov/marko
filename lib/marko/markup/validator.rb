@@ -52,7 +52,7 @@ module Marko
         #   src/source3.md:11 >> ## header
         errs.map{|id, nodes|
           sources = nodes.map{|n| "  #{n[:origin]}\n"}.join
-          "the same id [#{id}] found in\n#{sources}\n"
+          "the same id [#{id}] found in\n#{sources}"
         }
       end
     end

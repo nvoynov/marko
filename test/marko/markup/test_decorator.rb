@@ -50,5 +50,4 @@ class TestDecorator < Minitest::Test
     deco = decor('title', "body @@todo subject\n")
     assert_equal "body\n", deco.body
   end
-
 end

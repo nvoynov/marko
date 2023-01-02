@@ -7,36 +7,6 @@ describe Assembler do
 
   let(:assembler) { Assembler }
 
-  # @todo it seems much reasonable, although dirtier, to test it
-  #   inside Sandbox with Markup::Parser and Markup::Storage
-  #   maybe it should be moved under marko/markup?
-  let(:proper) {
-    <<~EOF
-      # Intro
-      ## Purpose
-      ## Overview
-      # Use Cases
-      {{id: uc}}
-      # UC01
-      {{parent: uc}}
-    EOF
-  }
-
-  let(:faulty_markup) {
-    <<~EOF
-      % Title
-      ## a
-    EOF
-  }
-
-  let(:faulty_tree) {
-    <<~EOF
-      # User Stories
-      ##
-      I want one [[lost]]
-    EOF
-  }
-
   describe '#call' do
     it 'must return Artifact for no sources found' do
       Sandbox.() {
@@ -49,9 +19,8 @@ describe Assembler do
 
     it 'must assemble tree' do
       Sandbox.() {
-        File.write('src/proper.md', proper)
-        tree = assembler.()
-        assert_equal 2, tree.items.size
+        punch_sample('proper.md')
+        assert assembler.()
       }
     end
 
@@ -68,9 +37,9 @@ describe Assembler do
 
     it 'must fail on sources parsing errors' do
       Sandbox.() {
-        File.write('src/faulty_markup.md', faulty_markup)
+        punch_sample('faulty_markup.md')
         ex = assert_raises(Assembler::Failure) { assembler.() }
-        assert_match %r{markup parsing failed}, ex.message
+        assert_match %r{markup parsing errors}, ex.message
         assert_match %r{wrong markup}, ex.message
         assert_match %r{wrong header}, ex.message
       }
@@ -78,10 +47,10 @@ describe Assembler do
 
     it 'must fail on tree validation errors' do
       Sandbox.() {
-        File.write('src/proper.md', proper)
-        File.write('src/faulty_tree.md', faulty_tree)
+        punch_sample('proper.md')
+        punch_sample('faulty_tree.md')
         ex = assert_raises(Assembler::Failure) { assembler.() }
-        assert_match %r{tree validation failed}, ex.message
+        assert_match %r{tree validation errors}, ex.message
         assert_match %r{lost link}, ex.message
       }
     end
@@ -117,7 +86,7 @@ class TestAssembler < Minitest::Test
     msg = "errors"
     err = ['error source.md:01', 'error source.md:02']
     failure = Assembler::Failure.new(msg)
-    assert_equal msg, failure.message
+    assert_equal msg + ?\n, failure.message
     failure = Assembler::Failure.new(msg, *err)
     assert_match %r{error source.md:01}, failure.message
     assert_match %r{error source.md:02}, failure.message

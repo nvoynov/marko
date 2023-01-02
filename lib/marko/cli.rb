@@ -42,7 +42,7 @@ module Marko
       result = Compile.(**kwargs, &pulsefn)
       puts "compiled #{result}\nSuccess!"
     rescue Marko::Assembler::Failure => e
-      puts "Assembler failed with #{e.errors.size} errors\n#{e.message}"
+      puts "Assembler failed with #{e.errors.size} #{e.message}"
       puts "Failure"
     end
 
@@ -65,7 +65,7 @@ module Marko
         print "  #{payload}.."
       when :errors
         unless payload.empty?
-          puts "#{payload.size} errors #{payload.join(?\n)}"
+          puts "#{payload.size} errors #{payload.join}"
         else
           puts "OK"
         end

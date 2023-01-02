@@ -2,6 +2,7 @@
 
 TODO
 
+- [ ] optimize tests for using content in 'test/samples'
 - [ ] default sentries MustbeString, MustbeArray
 - [ ] lib/assets/demo, README
 - [ ] `$ marko help [COMMAND]`

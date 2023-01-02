@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
-require "marko"
+require_relative "../lib/marko"
 include Marko
 
 require "minitest/autorun"
@@ -65,4 +65,9 @@ def print_tree(tree)
   puts tail.map{|n|
     puts '#' * n.nesting_level + " [#{n.id}] " + n.title
   }.join(?\n)
+end
+
+def punch_sample(sample)
+  filename = File.join(Marko.root, 'test', 'samples', sample)
+  File.write("src/#{sample}", File.read(filename))
 end

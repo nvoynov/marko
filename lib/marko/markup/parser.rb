@@ -24,7 +24,7 @@ module Marko
               parse_treenode(origin.markup)
                 .tap{|n| n[:origin] = origin }
             rescue => e
-              errmsg = "wrong markup #{origin} #{e.message}"
+              errmsg = "wrong markup #{origin} #{e.message}\n"
               errors << errmsg
               nil
             end
@@ -34,7 +34,7 @@ module Marko
             parent = find_parent(result, node[:origin].level)
             unless parent
               origin = node[:origin].to_s
-              errors << "wrong header #{origin}"
+              errors << "wrong header #{origin}\n"
               parent = result # it goes to the root!
             end
             parent << node

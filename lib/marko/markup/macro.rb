@@ -36,10 +36,8 @@ module Marko
 
       # substitutes all occured #pattern it text
       def gsub!(text, obj = nil)
-        fn = gsubfn(text, obj)
-        text
-          .scan(pattern)
-          .uniq.each(&fn)
+        fn = subfn(text, obj)
+        text.scan(pattern).each(&fn)
       end
 
       protected
@@ -52,9 +50,9 @@ module Marko
         fail '#subs must be overridden'
       end
 
-      def gsubfn(source, obj)
+      def subfn(source, obj)
         fn = proc{|source, obj, sample|
-          source.gsub!(sample, subs(sample, obj))
+          source.sub!(sample, subs(sample, obj))
         }.curry
         fn.(source, obj)
       end
@@ -75,20 +73,19 @@ module Marko
     end
 
     class MList < Macro
-      @pattern = /@@list[^\n]*\n/
+      @pattern = /@@list/
 
       def subs(sample, node)
         # @todo require sentry Decorator
         # MustbeTreeNode.(node)
         node.items
-          .map{|n| Decorator.new(n).ref}
-          .map{ "- #{_1}" }
+          .map{|n| d = Decorator.new(n); "- #{d.ref}" }
           .join(?\n) + ?\n
       end
     end
 
     class MTree < Macro
-      @pattern = /@@tree[^\n]*\n/
+      @pattern = /@@tree/
 
       def subs(sample, node)
         level = node.nesting_level + 1
@@ -117,11 +114,15 @@ module Marko
     #   end
     # end
 
+    # inline @@todo macro
+    # @todo remove line with \n when it starts from @@todo
     class MTodo < Macro
-      @pattern = /@@todo[^\n]*\n/
+      @pattern = /.*@@todo.*$/
 
       def subs(sample, obj = nil)
-        ''
+        cap = /(.*)@@todo.*$/
+        m = sample.match(cap)
+        m[1].strip + sample.gsub(pattern, '')
       end
     end
 

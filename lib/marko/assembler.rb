@@ -16,8 +16,8 @@ module Marko
         @errors = errors
         super(
           errors
-            .map{|e| "\n  #{e.to_s}"}
-            .unshift(message)
+            .map{|e| e.lines.map{|l| "  #{l}"}.join }
+            .unshift(message + ?\n)
             .join
         )
       end
@@ -27,14 +27,14 @@ module Marko
     def call
       @block.(:stage, 'loading sources') if @block
       buffer, errors = Loader.(&@block)
-      fail Failure.new('markup parsing failed', *errors) if errors.any?
+      fail Failure.new('markup parsing errors', *errors) if errors.any?
       @block.(:stage, 'tree assemblage') if @block
       tree = assemble(buffer)
       @block.(:stage, 'tree enrichment') if @block
       injectid(tree)
       @block.(:stage, 'tree validation') if @block
       errors = validate(tree)
-      fail Failure.new('tree validation failed', *errors) if errors.any?
+      fail Failure.new('tree validation errors', *errors) if errors.any?
       tree
     end
 
