@@ -2,10 +2,6 @@
 
 TODO
 
-- provide samples copying `lib/assets/samples` it into `.marko/samples`
-- provide domo into `.marko/demo`
-
-- add README custom "Marko on Requirements" example with extra metadata
 - add Github Pages (docs), README, CHANGELOG, STORY
 - custom code (Rakefile?)
   - FPA, PERT estimation sheets based on old gems
