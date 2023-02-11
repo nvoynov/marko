@@ -16,4 +16,8 @@ describe 'exe/marko' do
     Tempbox.() { system "marko demo" }
     Tempbox.() { system "marko d"    }
   end
+
+  it 'must samples' do
+    Tempbox.() { system "marko samples"}
+  end
 end

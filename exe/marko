@@ -11,10 +11,12 @@ when nil
 when /(n|new)/
   dir = ARGV.shift
   CLI.punch(dir)
-when /(d|demo)/
-  CLI.punch_demo
 when /(c|compile)/
   CLI.compile
+when /(d|demo)/
+  CLI.punch_demo
+when /(samples)/
+  CLI.punch_samples
 else
   CLI.banner
 end

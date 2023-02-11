@@ -48,4 +48,20 @@ class TestStorage < Minitest::Test
     }
   end
 
+  def test_punch_demo
+    Sandbox.() {
+      log = storage.punch_demo
+      assert_kind_of Array, log
+      # Dir.glob('**/*', File::FNM_DOTMATCH)
+    }
+  end
+
+  def test_punch_samples
+    Sandbox.() {
+      log = storage.punch_samples
+      assert_kind_of Array, log
+      # Dir.glob('**/*', File::FNM_DOTMATCH)
+    }
+  end
+
 end

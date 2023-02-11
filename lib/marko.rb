@@ -21,6 +21,14 @@ module Marko
       File.dirname __dir__
     end
 
+    def demo
+      File.join(root, 'lib', 'assets', 'demo')
+    end
+
+    def samples
+      File.join(root, 'lib', 'assets', 'samples')
+    end
+
     # helper method for assemblage
     # @see Marko::Services::Assemble
     def assemble(&block)

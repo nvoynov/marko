@@ -24,15 +24,31 @@ module Marko
         }
       end
 
+      def furnish(directory)
+        Dir.chdir(directory) {
+          marko_directories.each{|dir| Dir.mkdir dir }
+          src = File.join(Marko.root, 'lib', 'assets', 'init', '.')
+          cp_r src, Dir.pwd
+        }
+      end
+
       # create demo project
       def punch_demo
-        demo = File.join(Dir.home, DEMO)
-        unless Dir.exist?(demo)
-          punch(demo)
-          assets = File.join(Marko.root, 'lib', 'assets', 'demo', '.')
-          cp_r assets, demo
-        end
-        demo
+        return if Dir.exist?(DEMO)
+        mkdir_p DEMO
+        furnish DEMO
+        demo = File.join(Marko.demo, '.')
+        cp_r demo, DEMO
+        Dir.glob("#{DEMO}/**/*", File::FNM_DOTMATCH).tap(&:shift)
+      end
+
+      # create samples dir
+      def punch_samples
+        return if Dir.exist?(SAMPLES)
+        mkdir_p SAMPLES
+        samples = File.join(Marko.samples, '.')
+        cp_r samples, SAMPLES
+        Dir.glob("#{SAMPLES}/**/*", File::FNM_DOTMATCH).tap(&:shift)
       end
 
       # @see Storage#sources
@@ -79,12 +95,12 @@ module Marko
       BINARY = 'bin'.freeze
       SAMPLE = 'tt'.freeze
       ASSETS = File.join(BINARY, 'assets').freeze
-      DEMO = 'marko_demo'.freeze
+      DEMO = File.join('.marko', 'demo').freeze
+      SAMPLES = File.join('.marko', 'samples').freeze
 
       def marko_directories
         [SOURCE, BINARY, ASSETS, SAMPLE]
       end
-
 
       def marko_home!
         fail Failure, "Marko project required!" unless marko_home?

@@ -25,10 +25,18 @@ module Marko
     def punch_demo(args = ARGV)
       # pp options(:demo, args)
       log = storage.punch_demo
-      puts "Marko Demo cloned!\n#{log}"
+      puts "Marko Demo copied!"
+      puts log.map{"  #{_1}"}.join(?\n)
+
       kwargs = options(:demo, args)
       editor = kwargs.fetch(:editor, '')
       Dir.chdir(log) { `#{editor} .` } unless editor.empty?
+    end
+
+    def punch_samples(args = ARGV)
+      log = storage.punch_samples
+      puts "Marko Samples copied!"
+      puts log.map{"  #{_1}"}.join(?\n)
     end
 
     def compile(args = ARGV)
@@ -89,7 +97,7 @@ module Marko
     #          ||----w |
     #          ||     ||
     BANNER = <<~EOF.freeze
-      ~ Marko v0.1.3 ~ Markup Compiler
+      ~ Marko v#{Marko::VERSION} ~ Markup Compiler
       ~ https://github.io/nvoynov/marko
     EOF
 
