@@ -3,11 +3,6 @@ PATH
   specs:
     marko (0.2.0)
 
-PATH
-  remote: C:/Users/User/Documents/ruby/sancho
-  specs:
-    sancho (0.2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -22,7 +17,6 @@ DEPENDENCIES
   marko!
   minitest (~> 5.0)
   rake (~> 13.0)
-  sancho!
 
 BUNDLED WITH
    2.4.5
