@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="dcterms.date" content="2023-01-26" />
+  <title>Marko Story</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="css/styles.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p class="navbar">
+<span class="smallcaps">= <strong>“Marko” Markup Compiler</strong> = <a
+href="readme.html">Readme</a> ~ <a href="changelog.html">Changelog</a> ~
+<a href="story.html">Story</a> ~ <a
+href="https://github.com/nvoynov/sancho">Github</a></span>
+</p>
+<header id="title-block-header">
+<h1 class="title">Marko Story</h1>
+<p class="date">2023-01-26</p>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#childhood-2012" id="toc-childhood-2012">Childhood,
+2012</a></li>
+<li><a href="#adolescence-2014---2015"
+id="toc-adolescence-2014---2015">Adolescence, 2014 - 2015</a></li>
+<li><a href="#youth-since-2015" id="toc-youth-since-2015">Youth, since
+2015</a></li>
+<li><a href="#marko-2022" id="toc-marko-2022">Marko, 2022</a></li>
+</ul>
+</nav>
+<p><a href="https://github.com/nvoynov/marko">Marko</a> is the result of
+my ten-year journey with Ruby playing the Business Analyst role.</p>
+<h2 id="childhood-2012">Childhood, 2012</h2>
+<p>Somewhere in between 2011 and 2014 I was playing Software Engineer
+role in some BigKnownCo where my first and foremost working tool was
+Microsoft Word 2007. Requirements specifications and Architecture design
+documents Artifacts that I was mainly working on often consisted of one
+and more hundreds of pages and it was such a pain to deal with in MS
+Word which was the corporate standard.</p>
+<p>In simple words it just gone crazy on large documents, the program
+consumed all my RAM, document navigation was slow, the program simply
+stopped responding, which entailed restarting the process with a loss of
+changes; or even worse, the loss of style formatting that is invisible
+to the eye when you simply cannot see it that the formatting was lost
+somewhere on the 225th page.</p>
+<blockquote>
+<p>So problem was clear “<strong>The problem of</strong> the lack of
+simple reliable tools and approaches for writing software artifacts
+<strong>affects</strong> technical writers who develop and manage the
+artifacts <strong>the impact of which is</strong> they tend to
+choose..”</p>
+</blockquote>
+<p>And I come up with the idea to create something light, simple and
+reliable to eliminate the MS Word from my work experience once and for
+all. This time I was curious about using YAML for storing requirements
+just inside file system. And I regularly done some estimations and
+prioritization for requirements, so I decided that FPA, PERT, and
+Risk-Value prioritization will be valuable features here.</p>
+<p>It was my first serious diving into Ruby for few weeks. I succeeded
+in reading / writing YAML and even provided estimations algorithms. I
+fall in love with Ruby. But from user perspective (I was the user) it
+was complete failure. Writing YAML manually was just unforgivable but
+that time I was obsessed with the format.</p>
+<blockquote>
+<p>YAML was chosen just because this days I dramatically reduced time
+for load configuration of my target service provisioning system, that
+stored its configuration tree in RDBMS that causes ~5 000 000 selects
+for reading and about the same number insert/update for writing. It just
+reduced to 20 000 instead of 5 000 000.</p>
+</blockquote>
+<h2 id="adolescence-2014---2015">Adolescence, 2014 - 2015</h2>
+<p>It took two years to return to the subject, I left that job in 2014
+and got haft year off. This time I discovered Markdown and static site
+generators, and I decided on Markdown as my primary markup format, where
+each source is just a plain markdown file with some metadata
+excerpt.</p>
+<p>Things were going well and in a few months, I got something quite
+usable. Estimations algorithms were thrown out; markup sources were
+assembled in one artifact that was translated into HTML by Kramdown. I
+named it “Creq” for “console requirements” and since then I assembled
+all software artifacts in my own tool.</p>
+<h2 id="youth-since-2015">Youth, since 2015</h2>
+<p>Using my tool daily on a regular basis I discovered Pandoc and then
+can translate my artifact into any supported format; provided more
+advanced artifact templates, and provided a few templates for different
+purposes (draft, customer deliverable, etc.), added macros for tree node
+body.</p>
+<p>This time I named my tool Clerq because it just was my regular tool -
+I started my day from <code>$ git checkout -b new_feature</code> and
+finished with merging the branch, assembling new requirements increment,
+and pushing into git for my development team.</p>
+<p>In 2018 I have read The Clean Architecture I took my first clumsy
+attempts to apply it for Clerq.</p>
+<h2 id="marko-2022">Marko, 2022</h2>
+<p>The last time I used Clerq for two months in July 2022. I noticed
+that time that I use only “create a new project” and “build the
+artifact” commands. And I realized that there is nothing about
+requirements - just about artifact assembling.</p>
+<p>So I took two weeks and finished 2022 with a git commit on Dec 31,
+2022 :)</p>
+<p>The Marko purpose is assembling markup artifact from separated markup
+sources. Its interfaces are simple and clear. It could be naturally
+extended through Rakefile for any specific purpose related to visiting
+artifacts tree nodes.</p>
+<p>This is the first time I feel for a product that there are nothing I
+want to take or change. Just “Right Product, Done Right, Managed
+Messy”</p>
+<div id="footer">
+<hr />
+<p>© 2022-2023 <a href="http://nvoynov.github.io/">nvoynov</a></p>
+</div>
+</body>
+</html>

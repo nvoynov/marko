@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require "rake"
+require "sancho"
+tasks, folders = Sancho.tasks
+Rake.application.rake_require tasks, folders
+
 require "bundler/gem_tasks"
 require "rake/testtask"
 

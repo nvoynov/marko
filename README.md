@@ -1,4 +1,9 @@
-# Marko
+---
+title: Marko Readme
+keywords:
+- ruby
+- markup-compiler
+...
 
 Marko is a markup compiler that builds a tree from separated sources and compiles it into a single deliverable artifact.
 

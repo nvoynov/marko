@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="keywords" content="ruby, markup-compiler" />
+  <title>Marko Readme</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="css/styles.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p class="navbar">
+<span class="smallcaps">= <strong>“Marko” Markup Compiler</strong> = <a
+href="readme.html">Readme</a> ~ <a href="changelog.html">Changelog</a> ~
+<a href="story.html">Story</a> ~ <a
+href="https://github.com/nvoynov/sancho">Github</a></span>
+</p>
+<header id="title-block-header">
+<h1 class="title">Marko Readme</h1>
+</header>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#installation" id="toc-installation">Installation</a></li>
+<li><a href="#usage" id="toc-usage">Usage</a>
+<ul>
+<li><a href="#interface" id="toc-interface">Interface</a></li>
+<li><a href="#structure" id="toc-structure">Structure</a></li>
+<li><a href="#markup" id="toc-markup">Markup</a></li>
+<li><a href="#metadata" id="toc-metadata">Metadata</a></li>
+<li><a href="#tree-ids" id="toc-tree-ids">Tree, IDs</a></li>
+<li><a href="#macros" id="toc-macros">Macros</a></li>
+<li><a href="#templates" id="toc-templates">Templates</a></li>
+<li><a href="#automation" id="toc-automation">Automation</a></li>
+</ul></li>
+<li><a href="#development" id="toc-development">Development</a></li>
+<li><a href="#contributing" id="toc-contributing">Contributing</a></li>
+</ul>
+</nav>
+<p>Marko is a markup compiler that builds a tree from separated sources
+and compiles it into a single deliverable artifact.</p>
+<p>Marko supplies a “docs-as-code” approach for compiling bulky software
+artifacts by providing source storage, original plain text markup,
+compiler templates, Ruby- and a command-line interface for assembling
+and compiling.</p>
+<p>Having assembled the artifact, it can be analyzed, enriched by extra
+data, etc.; it can serve as a source for deriving subdued artifacts.</p>
+<p>I’ve applied the approach for dozens of artifacts for the last six
+years, mainly writing requirements in Markdown, analyzing quality,
+deriving estimation sheets, exporting deliverables with Pandoc, and
+automating some parts of my everyday work.</p>
+<h2 id="installation">Installation</h2>
+<p>Install the gem by executing:</p>
+<pre><code>$ gem install marko</code></pre>
+<h2 id="usage">Usage</h2>
+<h3 id="interface">Interface</h3>
+<p>Marko provides just basic command-line interface for creating new
+projects and assembling artifacts - run <code>$ marko</code> to see the
+details.</p>
+<p>In addition to the standard CLI, Marko supplies you with Rakefile,
+that also serves as custom automation example. You can run
+<code>rake -T</code> to see available commands.</p>
+<p>To help you with task automation, Marko provides
+<code>Marko.assemble</code> for assembling and
+<code>Marko.compile</code> for compiling artifacts (you could already
+spot it inside Rakefile.) See <a href="#automation">Automation</a>
+section for examples.</p>
+<h3 id="structure">Structure</h3>
+<p><code>marko new PROJECT</code> command will create a new marko
+project inside the <code>PROJECT</code> directory with following
+structure:</p>
+<ul>
+<li><a href="bin/">bin/</a> - output folder for <code>build</code></li>
+<li><a href="bin/assets/">bin/assets/</a> - assets folder</li>
+<li><a href="src/">src/</a> - markup sources</li>
+<li><a href="tt/">tt/</a> - templates for <code>build</code></li>
+<li><a href="marko.yml">marko.yml</a> - project configuration</li>
+<li><a href="Rakefile">Rakefile</a> - Rake automation file</li>
+<li><a href="README.md">README.md</a> - this file</li>
+</ul>
+<h3 id="markup">Markup</h3>
+<p>The basic and the only Marko entity is <a
+href="#github-link">TreeNode</a> with <code>id</code>,
+<code>meta</code>, <code>body</code>, and <code>items</code>
+properties.</p>
+<p>And the primary activity is just writing source files consisting of
+the TreeNode, where the source actually just a regular Markdown with an
+optional metadata excerpt. All lines from <code>#</code> until the next
+<code>#</code> are considered TreeNode.</p>
+<p>Let’s see it by example and assume one has a few separate sources
+<code>content.md</code>, <code>uc.signup.md</code>, and
+<code>uc.signin.md</code>. <code>content.md</code></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Overview</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu"># User Requirements</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Use Cases</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>{{id: uc, order_index: .signup .signin}}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># Functional requirements</span></span></code></pre></div>
+<p><code>uc.signup.md</code></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Sign-Up</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>{{id: .signup, parent: uc}}</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>body markup</span></code></pre></div>
+<p><code>uc.signin.md</code></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Sign-In</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>{{id: .signin, parent: uc}}</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>body markup</span></code></pre></div>
+<p>These sources will be assembled in a single hierarchy as follows</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Overview</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu"># User Requirements</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Use Cases</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>{{id: uc, order_index: .signup .signin}}</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sign-Up</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>{{id: .signup, parent: uc}}</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>body markup</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sign-In</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>{{id: .signin, parent: uc}}</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>body markup</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu"># Functional requirements</span></span></code></pre></div>
+<p>So all the assemblage magic is just linking TreeNode by using
+<code>id</code>, <code>parent</code>, and <code>order_index</code>
+attributes; where <code>id</code> and <code>parent</code> are just nodes
+identifiers, and <code>order_index</code> is just an array of
+identifiers that point out the order of getting <code>items</code>.</p>
+<h3 id="metadata">Metadata</h3>
+<p>It was shown above how to provide hierarchy attributes by metadata
+excerpt <code>{{}}</code>. But you can also use the excerpt to provide
+your own attributes, like <code>source: John Doe</code>,
+<code>affects: some.other.thing</code>, etc.</p>
+<h3 id="tree-ids">Tree, IDs</h3>
+<p>When you deal with trees in separated sources, to reference nodes you
+need identifiers. So when you write <code>id</code>, <code>parent</code>
+and <code>order_index</code> metadata - you actually deal with TreeNode
+Id, and it must be unique.</p>
+<p>When one works on a simple parent -&gt; child relationship,
+identifiers can be shortened by starting from <code>.</code>. In the
+example above <code>{{order_index: .signup .signin}}</code>, the parent
+will find its children by <code>/.signup$/</code> and
+<code>/.signin$/</code>; and besides, during the assembling phase those
+relative identifiers will be turned to full - <code>uc.signup</code> and
+<code>uc.signin</code>.</p>
+<p>Marko will generate a unique Id for each TreeNode when Id was not
+provided by the author.</p>
+<h3 id="macros">Macros</h3>
+<p>The TreeNode.body can include macros. The most helpful one is
+<code>[[reference.id]]</code> that will be substituted by well-formed
+markdown link <code>[&lt;node.title&gt;](#&lt;node.url&gt;)</code>.
+There are also <code>@@tree</code>, <code>@@list</code>,
+<code>@@todo</code>, and <code>@@skip</code> standard macros; and this
+list could be extended or shortened through building templates.</p>
+<ul>
+<li><code>@@tree</code> substituted by the tree of references to all
+descendants of the current node, might be used for the table of
+contents;</li>
+<li><code>@@list</code> substituted by the list of references to node
+items;</li>
+<li><code>@@todo</code> will will skip text with the macro till the end
+of the line</li>
+<li><code>@@skip</code> will skip the text after the macro</li>
+</ul>
+<h3 id="templates">Templates</h3>
+<p>Marko uses templates placed under the <code>tt</code> folder to
+compile sources into artifacts. You can use and customize the default
+one or design your own for particular purposes. It’s just pure ERB,
+where Marko enumerates TreeNodes and renders the node output.</p>
+<pre><code>&lt;%= @node.header %&gt;
+&lt;%= @node.meta   %&gt;
+&lt;%= @node.body   %&gt;</code></pre>
+<p>The <code>marko.yml</code> configuration file sets the building
+process’s default template and other default values.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode yml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">--- !ruby/struct:Marko::Artifact</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">id</span><span class="kw">:</span><span class="at"> ed863484-243f-4d46-8012-4b148f8c2910</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Marko Artifact</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span><span class="at"> tt/artifact.md.tt</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">filename</span><span class="kw">:</span><span class="at"> tt/marko-artifact.md</span></span></code></pre></div>
+<h3 id="automation">Automation</h3>
+<p>Following quick example will assemble tree, remove TreeNode with id
+== ‘hint’, and compile the tree. You can also see Rakefile for other
+examples.</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode ruby"><code class="sourceCode ruby"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span> <span class="vs">&#39;marko&#39;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">def</span> do_remove_hint</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  tree <span class="kw">=</span> <span class="dt">Marko</span><span class="at">.assemble</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  hint <span class="kw">=</span> tree<span class="at">.find_node</span>(<span class="vs">&#39;hint&#39;</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  hint<span class="at">.orphan!</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">Marko</span><span class="at">.compile</span>(<span class="wa">tree: </span>tree)  </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code></pre></div>
+<h2 id="development">Development</h2>
+<p>After checking out the repo, run <code>bin/setup</code> to install
+dependencies. Then, run <code>rake test</code> to run the tests. You can
+also run <code>bin/console</code> for an interactive prompt that will
+allow you to experiment.</p>
+<p>To install this gem onto your local machine, run
+<code>bundle exec rake install</code>. To release a new version, update
+the version number in <code>version.rb</code>, and then run
+<code>bundle exec rake release</code>, which will create a git tag for
+the version, push git commits and the created tag, and push the
+<code>.gem</code> file to <a
+href="https://rubygems.org">rubygems.org</a>.</p>
+<h2 id="contributing">Contributing</h2>
+<p>Bug reports and pull requests are welcome on GitHub at
+https://github.com/[USERNAME]/marko.</p>
+<div id="footer">
+<hr />
+<p>© 2022-2023 <a href="http://nvoynov.github.io/">nvoynov</a></p>
+</div>
+</body>
+</html>

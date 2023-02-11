@@ -1,8 +1,14 @@
+---
+title: Marko Changelog
+keywords:
+- ruby
+- markup-compiler
+...
+
 ## [Unreleased]
 
 TODO
 
-- add Github Pages (docs), README, CHANGELOG, STORY
 - custom code (Rakefile?)
   - FPA, PERT estimation sheets based on old gems
   - "complexity" based on node incoming/outgoing links
