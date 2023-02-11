@@ -16,7 +16,7 @@ TODO
 ## [0.2.0] - 2023-02-11
 
 - added `$ marko samples` that copies samples into `.marko/samples`
-- fixed banner now it shows gem version right
+- fixed "Marko v0.1.3" error gem version
 - changed `$ marko demo`, now it copies demo into `.marko/demo`
 
 
