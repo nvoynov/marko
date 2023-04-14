@@ -29,6 +29,7 @@ module Marko
       buffer, errors = Loader.(&@block)
       fail Failure.new('markup parsing errors', *errors) if errors.any?
       @block.(:stage, 'tree assemblage') if @block
+      # @todo fold first level when root note contain only one item?
       tree = assemble(buffer)
       @block.(:stage, 'tree enrichment') if @block
       injectid(tree)

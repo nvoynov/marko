@@ -47,7 +47,7 @@ module Marko
         hsh.delete(:order_index)
         hsh.delete(:parent)
         hsh.delete(:origin)
-        len = hsh.keys.map(&:length).max
+        # len = hsh.keys.map(&:length).max
         [].tap{|ary|
           ary << "key | value"
           ary << "--- | -----"

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    marko (0.2.1)
+    marko (0.2.2)
 
 GEM
   remote: https://rubygems.org/

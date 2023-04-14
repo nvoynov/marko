@@ -85,8 +85,9 @@ module Marko
     end
 
     def belongs_to?(ref)
-      owner = root.find{|n| n.id == ref}
-      self == owner&.find{|n| n == self}
+      node = self.parent
+      node = node.parent while node && node.id != ref
+      node&.id == ref
     end
 
     # @return [Node] the root node in the node hierarchy

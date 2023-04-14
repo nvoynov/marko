@@ -17,11 +17,7 @@ module Marko
       def punch(storage)
         fail Failure, "Directory already exists" if Dir.exist?(storage)
         Dir.mkdir(storage)
-        Dir.chdir(storage) {
-          marko_directories.each{|dir| Dir.mkdir dir }
-          src = File.join(Marko.root, 'lib', 'assets', 'init', '.')
-          cp_r src, Dir.pwd
-        }
+        furnish(storage)
       end
 
       def furnish(directory)
@@ -29,6 +25,7 @@ module Marko
           marko_directories.each{|dir| Dir.mkdir dir }
           src = File.join(Marko.root, 'lib', 'assets', 'init', '.')
           cp_r src, Dir.pwd
+          artifact
         }
       end
 
@@ -78,14 +75,23 @@ module Marko
 
       # @see Marko::Strorage#artifact
       def artifact
-        return Psych.load_file(ARTIFACT).freeze if File.exist?(ARTIFACT)
         art = Artifact.new(SecureRandom.uuid,
           'Marko Artifact',
           'tt/artifact.md.tt',
-          'tt/marko-artifact.md'
+          'bin/artifact.md'
         )
-        File.write(ARTIFACT, Psych.dump(art))
         art.freeze
+        text = Psych.dump(art)
+        head = text.lines.first
+        body = text.lines.drop(1).join
+        unless File.exist?(ARTIFACT)
+          File.write(ARTIFACT, body)
+          return art
+        end
+
+        body = File.read(ARTIFACT)
+        obj = Psych.load([head, body].join, freeze: true)
+        obj.is_a?(Artifact) ? obj : art # test for faulty load result
       end
 
       protected

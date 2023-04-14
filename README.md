@@ -131,11 +131,10 @@ Marko uses templates placed under the `tt` folder to compile sources into artifa
 The `marko.yml` configuration file sets the building process's default template and other default values.
 
 ```yml
---- !ruby/struct:Marko::Artifact
 id: ed863484-243f-4d46-8012-4b148f8c2910
 title: Marko Artifact
 template: tt/artifact.md.tt
-filename: tt/marko-artifact.md
+filename: bin/artifact.md
 ```
 
 ### Automation

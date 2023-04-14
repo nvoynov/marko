@@ -18,8 +18,8 @@ describe CLI do
     it 'must clone assets/demo' do
       Tempbox.() {
         o, _ = capture_io { CLI.punch_demo }
-        demo = File.join(Dir.home, 'marko_demo')
-        assert Dir.exist?(demo)
+        # @todo how to use the Marko::Markup::DEMO const here?
+        assert Dir.exist?('.marko/demo')
         assert_match %r{demo}, o
       }
     end

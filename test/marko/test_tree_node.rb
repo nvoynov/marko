@@ -46,4 +46,12 @@ class TestTreeNode < Minitest::Test
     assert a.root?
     refute b.root?
   end
+
+  def test_belongs_to?
+    tree = TreeNode.new(id: 'proper')
+    refute tree.belongs_to? 'proper'
+    dummy = tree << TreeNode.new(id: 'nn')
+    assert dummy.belongs_to? 'proper'
+    refute dummy.belongs_to? 'faulty'
+  end
 end

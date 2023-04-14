@@ -1,6 +1,6 @@
 % Marko Demo Project
 
-Welcome to your new [Marko](https://github.com/nvoynov/clerq) project!
+Welcome to your new [Marko](https://github.com/nvoynov/marko) project!
 
 # Structure
 
