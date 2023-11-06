@@ -57,7 +57,7 @@ describe Assembler do
   end
 end
 
-class Assembler
+class Marko::Assembler
   public_class_method :new
   public :load, :assemble, :injectid, :validate
 end

@@ -115,7 +115,7 @@ The TreeNode.body can include macros. The most helpful one is `[[reference.id]]`
 
 - `@@tree` substituted by the tree of references to all descendants of the current node, might be used for the table of contents;
 - `@@list` substituted by the list of references to node items;
-- `@@todo` will will skip text with the macro till the end of the line
+- `@@todo` will skip text with the macro till the end of the line
 - `@@skip` will skip the text after the macro
 
 ### Templates

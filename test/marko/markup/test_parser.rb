@@ -1,7 +1,7 @@
 require_relative "../../test_helper"
 include Marko::Markup
 
-class Parser
+class Marko::Markup::Parser
   public :parse, :scan_treenode, :find_parent
   public :parse_treenode, :parse_metadata, :parse_attribute
 end

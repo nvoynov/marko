@@ -1,7 +1,7 @@
 require_relative "../../test_helper"
 include Marko::Markup
 
-class Storage
+class Marko::Markup::Storage
   public :marko_home?
   public :marko_home!
 end
@@ -37,6 +37,12 @@ class TestStorage < Minitest::Test
       File.write(s1, '')
       File.write(s2, '')
       assert_equal [s1, s2], storage.sources
+    }
+  end
+
+  def test_artifact
+    Sandbox.() {
+      storage.artifact
     }
   end
 

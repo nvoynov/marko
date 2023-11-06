@@ -7,6 +7,12 @@ keywords:
 
 ## [Unreleased]
 
+## [0.2.3] - 2023-11-06
+
+- upgraded for Ruby 3.2
+- fixed `assets/init/Rakefile` for lost file extension
+- removed extra word from README
+
 ## [0.2.2] - 2023-04-14
 
 - changed artifact filename into `bin/artifact.md`; fixed `README.md`

@@ -89,8 +89,9 @@ module Marko
           return art
         end
 
-        body = File.read(ARTIFACT)
-        obj = Psych.load([head, body].join, freeze: true)
+        body = File.read(ARTIFACT)        
+        obj = Psych.load(head + body, freeze: true,
+          permitted_classes: [Symbol, Marko::Artifact])
         obj.is_a?(Artifact) ? obj : art # test for faulty load result
       end
 

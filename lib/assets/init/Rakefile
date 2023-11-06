@@ -71,7 +71,7 @@ namespace :marko do
     extra = args.extra
     Dir.mkdir('mm') unless Dir.exist?('mm')
     body = MINUTES % timestamp
-    name = "minutes-#{datestamp}#{extra.empty? ? '' : ?_ + extra}"
+    name = "minutes-#{datestamp}#{extra.empty? ? '' : ?_ + extra}.md"
     name = File.join('mm', name)
     errm = "Minutes exists already. Maybe you can provide [EXTRA]?"
     fail errm if File.exist?(name)
