@@ -31,7 +31,7 @@
 %     [ node.topic,
 %       meta?(node) ? meta(node) : '',
 %       node.body
-%     ].reject(&:empty?).map(&:strip).join("\n\n")
+%     ].reject(&:empty?).map(&:strip).join("\n\n")  + "\n\n"
 %   end
 % end
 <%= text(@node) %>

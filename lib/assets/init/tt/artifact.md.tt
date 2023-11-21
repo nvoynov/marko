@@ -3,5 +3,5 @@
 %   @node.props,
 %   @node.body
 % ].reject(&:empty?)
-%  .join("\n\n")
+%  .join("\n\n") + "\n\n"
 <%= text %>

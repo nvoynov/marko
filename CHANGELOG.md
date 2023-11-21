@@ -9,11 +9,13 @@ keywords:
 
 ## [0.2.4] - 2023-11-21
 
+- changed compiler for using `trim_mode: '%<>'` for ERB
 - changed decorator
   - removed `?\n` in `#header`, `#body`
   - changed `#meta` for returning original meta without system keys
+  - added `#props` for creating `meta` table
+  - added `alias :topic :header`
 - changed `tt/artifact.md.tt` for removing extra empty lines
-- added `alias :topic :header`
 - added `tt/custom.md.tt` as an example of handling custom meta keys
 - added test for `tt/*.md.tt`
 
