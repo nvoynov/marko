@@ -1,3 +1,7 @@
-<%= @node.header %>
-<%= @node.meta   %>
-<%= @node.body   %>
+% text = [
+%   @node.header,
+%   @node.props,
+%   @node.body
+% ].reject(&:empty?)
+%  .join("\n\n")
+<%= text %>

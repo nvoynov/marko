@@ -19,7 +19,7 @@ module Marko
 
       def compile
         storage = StoragePlug.plugged
-        erbgen = ERB.new(@template, trim_mode: '-')
+        erbgen = ERB.new(@template, trim_mode: '%<>')
         payload = @tree.map{|n| Decorator.new(n)}
         storage.write(@filename){|f|
           payload.each{|node|

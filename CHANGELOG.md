@@ -7,6 +7,16 @@ keywords:
 
 ## [Unreleased]
 
+## [0.2.4] - 2023-11-21
+
+- changed decorator
+  - removed `?\n` in `#header`, `#body`
+  - changed `#meta` for returning original meta without system keys
+- changed `tt/artifact.md.tt` for removing extra empty lines
+- added `alias :topic :header`
+- added `tt/custom.md.tt` as an example of handling custom meta keys
+- added test for `tt/*.md.tt`
+
 ## [0.2.3] - 2023-11-06
 
 - upgraded for Ruby 3.2

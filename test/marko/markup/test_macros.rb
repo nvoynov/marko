@@ -21,7 +21,7 @@ class TestMLink < Minitest::Test
 
     dhead = Decorator.new(head)
     source = dhead.body
-    sample = "Bla bla bla [lost](#lost-link) and [h2](#root-h1-h2)\n"
+    sample = "Bla bla bla [lost](#lost-link) and [h2](#root-h1-h2)"
     @macro.gsub!(source, dhead)
     assert_equal sample, source
   end
@@ -49,7 +49,7 @@ class TestMList < Minitest::Test
 
   def test_gsub
     deco = Decorator.new(@tree)
-    sample = <<~EOF
+    sample = <<~EOF.strip
       - [h1](#h1)
       - [h2](#h2)
     EOF
@@ -79,7 +79,6 @@ class TestMTree < Minitest::Test
     assert_equal ?\n, @macro.subs(
       '@@tree', Decorator.new(TreeNode.new))
     assert_equal sample, @macro.subs('@@tree', deco)
-    assert deco.body.end_with?(sample)
   end
 end
 

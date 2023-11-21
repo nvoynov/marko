@@ -37,27 +37,32 @@ module Marko
       end
 
       def header
-        return "% #{title}\n" if root?
-        "#{'#' * nesting_level} #{title.strip} {#{url}}\n"
+        return "% #{title}" if root?
+        "#{'#' * nesting_level} #{title.strip} {#{url}}"
+      end
+      alias :topic :header
+
+      # @return [Hash] metdata cleaned from system meta
+      def meta
+        super.dup.tap{|h| h.update(id: id)}
+          .reject{|k,_| %i[origin parent order_index].include?(k)}
       end
 
-      def meta
-        hsh = super.dup
-        hsh[:id] = id # full id will be there
-        hsh.delete(:order_index)
-        hsh.delete(:parent)
-        hsh.delete(:origin)
-        # len = hsh.keys.map(&:length).max
-        [].tap{|ary|
-          ary << "key | value"
-          ary << "--- | -----"
-          hsh.each{|k,v| ary << "#{k} | #{v}"}
-        }.join(?\n) + ?\n
+      # return [String] properties table from meta
+      def props
+        meta.then{|h|
+          klen = h.keys.map{ _1.to_s.size }.max + 4
+          vlen = h.values.map(&:size).max
+          mark = ?- * klen + ?\s + ?- * vlen
+          h.map{|k, v| "__#{k.capitalize}__".ljust(klen) + ?\ + v }
+            .unshift(mark)
+            .push(mark)
+            .join(?\n) + ?\n
+        }
       end
 
       def body
-        text = @macroproc.process(super, self)
-        text.strip + ?\n
+        @macroproc.process(super, self).strip
       end
     end
 

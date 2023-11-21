@@ -1,0 +1,37 @@
+% # Custom metadata sample
+% unless defined?(meta)
+%   def meta(node)
+%     lnkfu  = proc{|e| node.find_node(e)&.ref || "[#{e}](#404)" }
+%     magic = proc{|h, k|
+%       h.update(k => h[k]
+%         .split(?\s)
+%         .map(&lnkfu)
+%         .join(', ')
+%       ) if h[k]
+%     }
+%
+%     node.meta.then{|h|
+%       magic.(h, :depend)
+%       magic.(h, :satisfy)
+%       klen = h.keys.map{ _1.to_s.size }.max + 4
+%       vlen = h.values.map(&:size).max
+%       mark = ?- * klen + ?\s + ?- * vlen
+%       h.map{|k, v| "__#{k.capitalize}__".ljust(klen) + ?\ + v }
+%         .unshift(mark)
+%         .push(mark)
+%         .join(?\n) + ?\n
+%     }
+%   end
+%
+%   def meta?(node)
+%     %w[u s f].any?{|t| node.id == t || node.belongs_to?(t)}
+%   end
+%
+%   def text(node)
+%     [ node.topic,
+%       meta?(node) ? meta(node) : '',
+%       node.body
+%     ].reject(&:empty?).map(&:strip).join("\n\n")
+%   end
+% end
+<%= text(@node) %>
