@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 require "psych"
 require 'fileutils'
-require "securerandom"
 require_relative "../storage"
 
 module Marko
@@ -75,24 +74,20 @@ module Marko
 
       # @see Marko::Strorage#artifact
       def artifact
-        art = Artifact.new(SecureRandom.uuid,
-          'Marko Artifact',
-          'tt/artifact.md.tt',
-          'bin/artifact.md'
-        )
-        art.freeze
-        text = Psych.dump(art)
-        head = text.lines.first
-        body = text.lines.drop(1).join
+        artf = NULLFACT
+        head, body = Psych.dump(artf).lines.then{|ln|
+          [ln.first, ln.drop(1).join]
+        }
+
         unless File.exist?(ARTIFACT)
           File.write(ARTIFACT, body)
-          return art
+          return artf
         end
 
-        body = File.read(ARTIFACT)        
+        body = File.read(ARTIFACT)
         obj = Psych.load(head + body, freeze: true,
           permitted_classes: [Symbol, Marko::Artifact])
-        obj.is_a?(Artifact) ? obj : art # test for faulty load result
+        obj.is_a?(Artifact) ? obj : artf
       end
 
       protected

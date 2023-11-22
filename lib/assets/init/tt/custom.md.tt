@@ -1,37 +1,19 @@
-% # Custom metadata sample
-% unless defined?(meta)
-%   def meta(node)
-%     lnkfu  = proc{|e| node.find_node(e)&.ref || "[#{e}](#404)" }
-%     magic = proc{|h, k|
-%       h.update(k => h[k]
-%         .split(?\s)
-%         .map(&lnkfu)
-%         .join(', ')
-%       ) if h[k]
-%     }
+%# Marko custom template
 %
-%     node.meta.then{|h|
-%       magic.(h, :depend)
-%       magic.(h, :satisfy)
-%       klen = h.keys.map{ _1.to_s.size }.max + 4
-%       vlen = h.values.map(&:size).max
-%       mark = ?- * klen + ?\s + ?- * vlen
-%       h.map{|k, v| "__#{k.capitalize}__".ljust(klen) + ?\ + v }
-%         .unshift(mark)
-%         .push(mark)
-%         .join(?\n) + ?\n
-%     }
-%   end
-%
-%   def meta?(node)
+% if !defined?(custom?)
+%   def custom?(node)
 %     %w[u s f].any?{|t| node.id == t || node.belongs_to?(t)}
 %   end
 %
-%   def text(node)
-%     [ node.topic,
-%       meta?(node) ? meta(node) : '',
-%       node.body
-%     ].reject(&:empty?).map(&:strip).join("\n\n")  + "\n\n"
+%   def custom!(node)
+%     lnkfu = proc{|e| node.find_node(e)&.ref || "[#{e}](#404)" }
+%     subfu = proc{|s| s.split(?\s).map(&lnkfu).join(', ')}
+%     node[:depend] = subfu.(node[:depend]) if node[:depend]
+%     node[:satisfy] = subfu.(node[:satisfy]) if node[:satisfy]
 %   end
 % end
-<%= text(@node) %>
+%
+% @model.each do |node|
+%   custom!(node) if custom?(node)
+<%= node.text %>
+% end

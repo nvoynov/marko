@@ -1,0 +1,4 @@
+%# Marko default template
+% @model.each do |node|
+<%= node.text %>
+% end

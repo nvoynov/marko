@@ -1,6 +1,10 @@
 require_relative '../../test_helper'
 include Marko::Markup
 
+class Marko::Markup::Decorator
+  public :url
+end
+
 class TestDecorator < Minitest::Test
   def decor(title = '', body = '', **meta)
     node = TreeNode.new(title, body, **meta)

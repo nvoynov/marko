@@ -7,6 +7,11 @@ keywords:
 
 ## [Unreleased]
 
+- [ ] add order_index to Artifact?
+- [ ] is there `:parent` at the stage of decorator?
+- [ ] decorator should provide `#text` as a join of title, meta, body?
+- [ ] compiler renders tree nodes separately one by one, that causes redefining custom methods and constants inside; maybe the full tree should be passed to ERB
+
 ## [0.2.4] - 2023-11-21
 
 - changed compiler for using `trim_mode: '%<>'` for ERB

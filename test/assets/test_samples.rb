@@ -1,5 +1,17 @@
 require_relative "../test_helper"
 
+class Sampler
+  def self.call(model, sample)
+    new.(model, sample)
+  end
+
+  def call(model, sample)
+    @model = model.map{|n| Markup::Decorator.new(n)}
+    samplr = ERB.new(sample, trim_mode: '%<>')
+    samplr.result(binding)
+  end
+end
+
 class TestSamples < Minitest::Test
   def just_root
     TreeNode.new('root')
@@ -12,24 +24,20 @@ class TestSamples < Minitest::Test
     }
   end
 
-  def erbs
+  def samples
     dir = './lib/assets/init/tt'
     Dir.glob("#{dir}/*.md.tt")
       .map{ File.read(_1) }
-      .map{ ERB.new(_1, trim_mode: '%<>') }
   end
 
-  def decor = Markup::Decorator
-
   def nodes
-    [some_tree, just_root].map{ decor.new(_1) }
+    [some_tree, just_root]
   end
 
   def test_dry_run
-    nodes.product(erbs).each{|tree, sample|
-      @node = tree
-      # puts sample.result(binding)
-      sample.result(binding)
+    nodes.product(samples).each{|tree, sample|
+      # puts Sampler.(tree, sample)
+      Sampler.(tree, sample)
     }
   end
 end

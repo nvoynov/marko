@@ -7,7 +7,7 @@ class TestCompiler < Minitest::Test
   end
 
   def template
-    name = File.join(Marko.root, 'lib', 'assets', 'init', 'tt', 'artifact.md.tt')
+    name = File.join(Marko.root, 'lib', 'assets', 'init', 'tt', 'default.md.tt')
     File.read(name)
   end
 
