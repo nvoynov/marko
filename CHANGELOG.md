@@ -8,9 +8,14 @@ keywords:
 ## [Unreleased]
 
 - [ ] add order_index to Artifact?
-- [ ] is there `:parent` at the stage of decorator?
-- [ ] decorator should provide `#text` as a join of title, meta, body?
-- [ ] compiler renders tree nodes separately one by one, that causes redefining custom methods and constants inside; maybe the full tree should be passed to ERB
+
+## [0.3.0] - 2023-11-22
+
+- changed `Markup::Compiler` for using collection instead of decorated object
+- changed `Markup::Decorator` for providing `#text` than combines header, props, and body
+- changed `default` and `custom` templates
+- fixed `rake marko:toc` for using `abort` instead of `return` for empty query
+- removed unused `id` from `marko.yml`
 
 ## [0.2.4] - 2023-11-21
 

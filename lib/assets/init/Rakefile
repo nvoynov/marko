@@ -26,7 +26,7 @@ namespace :marko do
       tree = tree.find_node(query)
       unless tree
         puts "Nothing to be printed!"
-        return
+        abort
       end
       tree.orphan!
     end

@@ -31,12 +31,12 @@ To help you with task automation, Marko provides `Marko.assemble` for assembling
 
 ### Structure
 
-`marko new PROJECT` command will create a new marko project inside the `PROJECT` directory with following structure:
+`marko new PROJECT` command will create a new Marko project inside the `PROJECT` directory with following structure:
 
 - [bin/](bin/) - output folder for `build`
 - [bin/assets/](bin/assets/) - assets folder
 - [src/](src/) - markup sources
-- [tt/](tt/) - templates for `build`
+- [tt/](tt/) - compiler templates
 - [marko.yml](marko.yml) - project configuration
 - [Rakefile](Rakefile) - Rake automation file
 - [README.md](README.md) - this file
@@ -120,20 +120,19 @@ The TreeNode.body can include macros. The most helpful one is `[[reference.id]]`
 
 ### Templates
 
-Marko uses templates placed under the `tt` folder to compile sources into artifacts. You can use and customize the default one or design your own for particular purposes. It's just pure ERB, where Marko enumerates TreeNodes and renders the node output.
+Marko uses templates placed under the `tt` folder to compile sources into artifacts. You can use and customize the default one or design your own for particular purposes. It's just pure ERB, where Marko renders collection of decorated TreeNodes.
 
 ```
-<%= @node.header %>
-<%= @node.meta   %>
-<%= @node.body   %>
+% @model.each do |node|
+<%= node.text %>
+% end
 ```
 
 The `marko.yml` configuration file sets the building process's default template and other default values.
 
 ```yml
-id: ed863484-243f-4d46-8012-4b148f8c2910
-title: Marko Artifact
-template: tt/artifact.md.tt
+title: Artifact
+template: tt/default.md.tt
 filename: bin/artifact.md
 ```
 
