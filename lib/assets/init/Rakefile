@@ -5,16 +5,20 @@ require 'marko/markup'
 
 namespace :marko do
 
-  # @todo pandoc: bin/arfifact.docx: openBinaryFile: permission denied (Permission denied)
-  #   Success! Find the artifact in bin/arfifact.docx
-  #
   desc 'Publish the artifact'
   task :publish do
-    output = 'bin/arfifact'
-    `marko c -o #{output}.md`
-    pandoc = `pandoc #{output}.md -o #{output}.docx`
-    File.delete("#{output}.md")
-    puts "Success! Find the artifact in #{output}.docx"
+    output = Marko.artifact.filename
+    print "compiling #{output}.. "
+    `marko -c`
+    puts "OK"
+    source = File.basename(output)
+    target = source.gsub(/.md$/, '.docx')
+    print " creating bin/#{target}.. "
+    pandoc = Dir.chdir('bin') {
+      `pandoc -s --toc #{source} -o #{target}`
+    }
+    return "Failed! #{pandoc}" unless pandoc.empty?
+    puts "OK\nSuccess! Find the artifact in bin/#{target}"
   end
 
   desc 'Print table of contents'
