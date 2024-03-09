@@ -13,6 +13,7 @@ keywords:
 
 - updated Sancho
 - removed "docs" branch
+- some tree_node.rb methods optimization
 
 ## [0.3.0] - 2023-11-22
 
