@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/nvoynov/sancho.git
+  revision: 9313f2698fef8235adee9829b6a488ad14a85835
+  specs:
+    sancho (0.6.2)
+
 PATH
   remote: .
   specs:
@@ -6,18 +12,20 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    minitest (5.16.3)
-    rake (13.0.6)
+    minitest (5.22.2)
+    rake (13.1.0)
 
 PLATFORMS
+  arm64-darwin-23
   x64-mingw-ucrt
   x64-mingw32
   x86_64-linux
 
 DEPENDENCIES
   marko!
-  minitest (~> 5.0)
-  rake (~> 13.0)
+  minitest (~> 5.22)
+  rake (~> 13.1)
+  sancho!
 
 BUNDLED WITH
    2.4.5
