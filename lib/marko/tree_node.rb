@@ -31,7 +31,6 @@ module Marko
       @title = MustbeString.(title, :title)
       @body = MustbeString.(body, :body)
       @meta = meta
-      @meta[:id] = '' unless @meta[:id]
     end
 
     def <<(node)
@@ -52,14 +51,14 @@ module Marko
     def order_index
       @meta
         .fetch(:order_index, '')
-        .strip
-        .split(/\s{1,}/)
+        .strip.split(/\s{1,}/)
     end
 
     def id
-      val = @meta.fetch(:id, '')
-      return val unless @parent
-      val.start_with?('.') ? @parent.id + val : val
+      meta.fetch(:id, '').then{|s|
+        s = parent.id + s if s.start_with?(?.) && parent
+        s
+      }
     end
 
     def find_item(ref)
@@ -68,7 +67,8 @@ module Marko
 
     def find_node(ref)
       return find_item(ref) if ref.start_with?(?.)
-      root.find{|n| n.id == ref}
+      fu = proc{|n| n.id == ref}
+      find(&fu).then{|n| n ? n : root.find(&fu) }
     end
 
     # @return [Array<Node>] ordered list of child nodes
@@ -85,25 +85,27 @@ module Marko
     end
 
     def belongs_to?(ref)
-      node = self.parent
-      node = node.parent while node && node.id != ref
-      node&.id == ref
+      parent.then{|n|
+        n = n.parent while n && n.id != ref
+        n&.id == ref
+      }
     end
 
     # @return [Node] the root node in the node hierarchy
     def root
-      n = self
-      n = n.parent while n.parent
-      n
+      self.then{|n|
+        n = n.parent while n.parent
+        n
+      }
     end
 
     def root?
-      self == root
+      parent.nil?
     end
 
     # @return [Integer] the node level in the node hierarchy
     def nesting_level
-      @parent.nil? ? 0 : @parent.nesting_level + 1
+      root? ? 0 : parent.nesting_level + 1
     end
 
     # @return [Array<String>] macro links in the node #body  IT IS RATHER MACRO FOR WRITER SO TI SHOULD BE PROCESSED APPROPRIATELY

@@ -12,8 +12,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -30,7 +33,7 @@
 <span class="smallcaps">= <strong>“Marko” Markup Compiler</strong> = <a
 href="readme.html">Readme</a> ~ <a href="changelog.html">Changelog</a> ~
 <a href="story.html">Story</a> ~ <a
-href="https://github.com/nvoynov/sancho">Github</a></span>
+href="https://github.com/nvoynov/marko">Github</a></span>
 </p>
 <header id="title-block-header">
 <h1 class="title">Marko Story</h1>
@@ -126,7 +129,7 @@ want to take or change. Just “Right Product, Done Right, Managed
 Messy”</p>
 <div id="footer">
 <hr />
-<p>© 2022-2023 <a href="http://nvoynov.github.io/">nvoynov</a></p>
+<p>© 2022-2024 <a href="http://nvoynov.github.io/">nvoynov</a></p>
 </div>
 </body>
 </html>

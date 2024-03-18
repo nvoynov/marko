@@ -12,8 +12,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -30,31 +33,82 @@
 <span class="smallcaps">= <strong>“Marko” Markup Compiler</strong> = <a
 href="readme.html">Readme</a> ~ <a href="changelog.html">Changelog</a> ~
 <a href="story.html">Story</a> ~ <a
-href="https://github.com/nvoynov/sancho">Github</a></span>
+href="https://github.com/nvoynov/marko">Github</a></span>
 </p>
 <header id="title-block-header">
 <h1 class="title">Marko Changelog</h1>
 </header>
 <nav id="TOC" role="doc-toc">
 <ul>
+<li><a href="#todo" id="toc-todo">TODO</a></li>
 <li><a href="#unreleased" id="toc-unreleased">[Unreleased]</a></li>
-<li><a href="#section" id="toc-section">[0.2.0] - 2023-02-11</a></li>
-<li><a href="#section-1" id="toc-section-1">[0.1.0] -
+<li><a href="#section" id="toc-section">[0.3.0] - 2023-11-22</a></li>
+<li><a href="#section-1" id="toc-section-1">[0.2.4] -
+2023-11-21</a></li>
+<li><a href="#section-2" id="toc-section-2">[0.2.3] -
+2023-11-06</a></li>
+<li><a href="#section-3" id="toc-section-3">[0.2.2] -
+2023-04-14</a></li>
+<li><a href="#section-4" id="toc-section-4">[0.2.0] -
+2023-02-11</a></li>
+<li><a href="#section-5" id="toc-section-5">[0.1.0] -
 2023-01-02</a></li>
 </ul>
 </nav>
-<h2 id="unreleased">[Unreleased]</h2>
-<p>TODO</p>
-<ul>
-<li>custom code (Rakefile?)
-<ul>
-<li>FPA, PERT estimation sheets based on old gems</li>
-<li>“complexity” based on node incoming/outgoing links</li>
-<li>this might be helpful for estimations, some sort of adapted FPA in
-story points!</li>
-</ul></li>
+<h2 id="todo">TODO</h2>
+<ul class="task-list">
+<li><label><input type="checkbox" />add order_index to
+Artifact?</label></li>
 </ul>
-<h2 id="section">[0.2.0] - 2023-02-11</h2>
+<h2 id="unreleased">[Unreleased]</h2>
+<ul>
+<li>updated Sancho</li>
+<li>removed “docs” branch</li>
+</ul>
+<h2 id="section">[0.3.0] - 2023-11-22</h2>
+<ul>
+<li>changed <code>Markup::Compiler</code> for using collection instead
+of decorated object</li>
+<li>changed <code>Markup::Decorator</code> for providing
+<code>#text</code> than combines header, props, and body</li>
+<li>changed <code>default</code> and <code>custom</code> templates</li>
+<li>fixed <code>rake marko:toc</code> for using <code>abort</code>
+instead of <code>return</code> for empty query</li>
+<li>removed unused <code>id</code> from <code>marko.yml</code></li>
+</ul>
+<h2 id="section-1">[0.2.4] - 2023-11-21</h2>
+<ul>
+<li>changed compiler for using <code>trim_mode: '%&lt;&gt;'</code> for
+ERB</li>
+<li>changed decorator
+<ul>
+<li>removed <code>?\n</code> in <code>#header</code>,
+<code>#body</code></li>
+<li>changed <code>#meta</code> for returning original meta without
+system keys</li>
+<li>added <code>#props</code> for creating <code>meta</code> table</li>
+<li>added <code>alias :topic :header</code></li>
+</ul></li>
+<li>changed <code>tt/artifact.md.tt</code> for removing extra empty
+lines</li>
+<li>added <code>tt/custom.md.tt</code> as an example of handling custom
+meta keys</li>
+<li>added test for <code>tt/*.md.tt</code></li>
+</ul>
+<h2 id="section-2">[0.2.3] - 2023-11-06</h2>
+<ul>
+<li>upgraded for Ruby 3.2</li>
+<li>fixed <code>assets/init/Rakefile</code> for lost file extension</li>
+<li>removed extra word from README</li>
+</ul>
+<h2 id="section-3">[0.2.2] - 2023-04-14</h2>
+<ul>
+<li>changed artifact filename into <code>bin/artifact.md</code>; fixed
+<code>README.md</code></li>
+<li>removed Psych object string from <code>marko.yml</code></li>
+<li>changed <code>TreeNode#belongs_to?</code></li>
+</ul>
+<h2 id="section-4">[0.2.0] - 2023-02-11</h2>
 <ul>
 <li>added <code>$ marko samples</code> that copies samples into
 <code>.marko/samples</code></li>
@@ -62,13 +116,13 @@ story points!</li>
 <li>changed <code>$ marko demo</code>, now it copies demo into
 <code>.marko/demo</code></li>
 </ul>
-<h2 id="section-1">[0.1.0] - 2023-01-02</h2>
+<h2 id="section-5">[0.1.0] - 2023-01-02</h2>
 <ul>
 <li>Initial release</li>
 </ul>
 <div id="footer">
 <hr />
-<p>© 2022-2023 <a href="http://nvoynov.github.io/">nvoynov</a></p>
+<p>© 2022-2024 <a href="http://nvoynov.github.io/">nvoynov</a></p>
 </div>
 </body>
 </html>

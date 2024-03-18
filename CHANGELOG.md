@@ -1,13 +1,19 @@
 ---
 title: Marko Changelog
 keywords:
-- ruby
-- markup-compiler
+  - ruby
+  - markup-compiler
 ...
+
+## TODO
+
+- [ ] add order_index to Artifact?
 
 ## [Unreleased]
 
-- [ ] add order_index to Artifact?
+- updated Sancho
+- removed "docs" branch
+- some tree_node.rb methods optimization
 
 ## [0.3.0] - 2023-11-22
 

@@ -12,8 +12,11 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -21,7 +24,7 @@
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -32,7 +35,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -94,7 +97,7 @@
 <span class="smallcaps">= <strong>“Marko” Markup Compiler</strong> = <a
 href="readme.html">Readme</a> ~ <a href="changelog.html">Changelog</a> ~
 <a href="story.html">Story</a> ~ <a
-href="https://github.com/nvoynov/sancho">Github</a></span>
+href="https://github.com/nvoynov/marko">Github</a></span>
 </p>
 <header id="title-block-header">
 <h1 class="title">Marko Readme</h1>
@@ -146,14 +149,14 @@ that also serves as custom automation example. You can run
 spot it inside Rakefile.) See <a href="#automation">Automation</a>
 section for examples.</p>
 <h3 id="structure">Structure</h3>
-<p><code>marko new PROJECT</code> command will create a new marko
+<p><code>marko new PROJECT</code> command will create a new Marko
 project inside the <code>PROJECT</code> directory with following
 structure:</p>
 <ul>
 <li><a href="bin/">bin/</a> - output folder for <code>build</code></li>
 <li><a href="bin/assets/">bin/assets/</a> - assets folder</li>
 <li><a href="src/">src/</a> - markup sources</li>
-<li><a href="tt/">tt/</a> - templates for <code>build</code></li>
+<li><a href="tt/">tt/</a> - compiler templates</li>
 <li><a href="marko.yml">marko.yml</a> - project configuration</li>
 <li><a href="Rakefile">Rakefile</a> - Rake automation file</li>
 <li><a href="README.md">README.md</a> - this file</li>
@@ -241,26 +244,24 @@ descendants of the current node, might be used for the table of
 contents;</li>
 <li><code>@@list</code> substituted by the list of references to node
 items;</li>
-<li><code>@@todo</code> will will skip text with the macro till the end
-of the line</li>
+<li><code>@@todo</code> will skip text with the macro till the end of
+the line</li>
 <li><code>@@skip</code> will skip the text after the macro</li>
 </ul>
 <h3 id="templates">Templates</h3>
 <p>Marko uses templates placed under the <code>tt</code> folder to
 compile sources into artifacts. You can use and customize the default
 one or design your own for particular purposes. It’s just pure ERB,
-where Marko enumerates TreeNodes and renders the node output.</p>
-<pre><code>&lt;%= @node.header %&gt;
-&lt;%= @node.meta   %&gt;
-&lt;%= @node.body   %&gt;</code></pre>
+where Marko renders collection of decorated TreeNodes.</p>
+<pre><code>% @model.each do |node|
+&lt;%= node.text %&gt;
+% end</code></pre>
 <p>The <code>marko.yml</code> configuration file sets the building
 process’s default template and other default values.</p>
 <div class="sourceCode" id="cb7"><pre
-class="sourceCode yml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">--- !ruby/struct:Marko::Artifact</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">id</span><span class="kw">:</span><span class="at"> ed863484-243f-4d46-8012-4b148f8c2910</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Marko Artifact</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span><span class="at"> tt/artifact.md.tt</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">filename</span><span class="kw">:</span><span class="at"> tt/marko-artifact.md</span></span></code></pre></div>
+class="sourceCode yml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> Artifact</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span><span class="at"> tt/default.md.tt</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">filename</span><span class="kw">:</span><span class="at"> bin/artifact.md</span></span></code></pre></div>
 <h3 id="automation">Automation</h3>
 <p>Following quick example will assemble tree, remove TreeNode with id
 == ‘hint’, and compile the tree. You can also see Rakefile for other
@@ -291,7 +292,7 @@ href="https://rubygems.org">rubygems.org</a>.</p>
 https://github.com/[USERNAME]/marko.</p>
 <div id="footer">
 <hr />
-<p>© 2022-2023 <a href="http://nvoynov.github.io/">nvoynov</a></p>
+<p>© 2022-2024 <a href="http://nvoynov.github.io/">nvoynov</a></p>
 </div>
 </body>
 </html>
