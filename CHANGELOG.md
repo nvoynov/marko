@@ -7,6 +7,9 @@ keywords:
 
 ## TODO
 
+- [ ] Plugable -> Plugin; compiler, parser, validator, storage are Plugins; move to plugins
+- [ ] redesing demo content and updata Github Pages
+- [ ] sancho:serve maps "/" to index.html
 - [ ] add order_index to Artifact?
 
 ## [Unreleased]
@@ -14,6 +17,9 @@ keywords:
 - updated Sancho
 - removed "docs" branch
 - some tree_node.rb methods optimization
+- demo artifact for Github Pages
+  - new mkdemo rake task that renders demo copies it into DEMO.md
+  - DEMO.md added to sancho.yml
 
 ## [0.3.0] - 2023-11-22
 
