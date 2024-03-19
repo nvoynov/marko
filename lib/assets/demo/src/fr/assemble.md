@@ -1,27 +1,24 @@
 # Assemble artifact
 {{id: .assemble, parent: fr}}
 
-The system shall provide the function to assemble artifact.
+The system shall provide the function to assemble the artifact.
 
-__Input__
+[Input]{.underline}
 
-* NO
+- NO PARAMETERS
 
-__Output__
+[Output]{.underline}
 
-Parameter Type     0..* Description
---------- -------- ---- --------------
-tree      TreeNode 1    assembled tree
+Parameter | Type            | Mult. | Description
+--------- | --------------- | ----- | --------------
+tree      | [[fr.treenode]] |     1 | assembled tree
 
 __Flow__
 
-@@todo provide id for required functions and change steps with appropriate links
-
-1. get list of project sources
-2. parse sources buffering nodes and errors
-3. fail "parsing errors" if errors.any?
-4. assemble artifact from buffer of nodes
-5. generate and inject auto ids
-6. validate artifact buffering errors
-7. fail "tree errors" if errors.any?
-8. return artifact
+1. Get list of the project sources
+2. Parse sources collecting parsing errors.
+3. Fail with the list of parsing errors when any.
+4. Assemble the artifact tree based on id, parent, and order_index metadata collecting tree errors.
+5. Fail with the list of tree errors if any.
+6. Generate auto IDs for nodes without ID.
+7. Return artifact tree

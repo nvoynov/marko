@@ -39,15 +39,15 @@ During the parsing process the system must record source information within the 
 
 __Input__
 
-Parameter Type   0..* Description
---------- ------ ---- -----------
-filename  String 1    filename
+Parameter | Type   | Mult. | Description
+--------- | ------ | ----- | -----------
+filename  | String |     1 | filename
 
 __Output__
 
-Parameter Type   0..* Description
---------- ------ ---- -----------
-node      Node   0..n node parsed
+Parameter | Type            | Mult. | Description
+--------- | --------------- | ----- | -----------
+node      | [[fr.treenode]] | 0..N  | node parsed
 
 ## Assemble Tree
 
@@ -57,21 +57,19 @@ The system shall provide the function to assemble the artifact tree. The artifac
 
 __Input__
 
-Parameter Type   0..* Description
---------- ------ ---- -----------
-node      Node   0..n node array
+Parameter | Type            | Mult. | Description
+--------- | --------------- | ----- | -----------
+node      | [[fr.treenode]] | 0..N  | node collection
 
 __Output__
 
-Parameter Type   0..* Description
---------- ------ ---- -----------
-node      Node   1    root tree
+Parameter | Type            | Mult. | Description
+--------- | --------------- | ----- | -----------
+node      | [[fr.treenode]] |    1  | root node
 
 ## Inject Id
 
-The system shall provide each node with unique node Id.
-
-Some nodes can already have ids from source file, especially those that referenced as parent or child and placed in separate files. For those nodes that still have empty id, the system must generate auto id 0..99.
+The system shall provide each node with unique node Id. Some nodes can already have id from source files, especially those that referenced as parent or child and placed in separate files. For those nodes that still have empty id, the system must generate auto id 0..99.
 
 For example, when the system has assembled the tree
 
@@ -97,9 +95,9 @@ and then generated id, the generated ids should be as follows:
 
 __Input__
 
-Parameter Type   0..* Description
---------- ------ ---- -----------
-root      Node   1    root node
+Parameter | Type            | Mult. | Description
+--------- | --------------- | ----- | -----------
+root      | [[fr.treenode]] |    1  | root node
 
 ## Checking Tree
 

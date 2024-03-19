@@ -10,10 +10,10 @@ The users of the system are different people who play for authoring various sort
 {{id: ur, order_index: uc}}
 
 ## Use Cases
-{{id: uc, order_index: .create.project .general.flow}}
+{{id: uc, order_index: .create .manage .compile .automate}}
 
 # Functional Requirements
-{{id: fr, order_index: .treenode .markup .storage .assemble .compile}}
+{{id: fr, order_index: .treenode .markup .create .assemble .compile}}
 
 # Interface Requirements
 {{id: ui, order_index: .cli .gem}}
@@ -21,14 +21,14 @@ The users of the system are different people who play for authoring various sort
 # Assumptions and Dependencies
 {{id: as}}
 
-##
+## Graphical User Interface
 
-The system requires a user interface for managing markup sources. It is assumed that users utilize any text editor of their choice.
+The user will utilize his preferred text editor so no other UI requirement
 
-##
+## Versions and Access management
 
-The system requires tools for collaboration on artifacts by several authors simultaneously. Because of the plain text nature of the markup sources, It is assumed using Git for managing the artifact sources repository.
+The user will utilize Git so no other version management or access management requirements
 
-##
+## Deliverables Publishing
 
-The system requires the compilation of artifacts into deliverables in form of well-supported formats like pdf, doc, etc. It is assumed using Pandoc for creating deliverables.
+The user will publish deliverables by using Pandoc so there are no publishing requirements

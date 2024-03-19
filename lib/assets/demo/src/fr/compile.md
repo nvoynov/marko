@@ -3,23 +3,25 @@
 
 The system shall provide the function to create deliverable artifact.
 
-__Input__
+[Input]{.underline}
 
-Parameter Type     0..* Description
---------- -------- ---- --------------
-tree      TreeNode 1    assembled tree
-template  String   1    ERB template
-filename  String   1    filename
+Parameter | Type            | Mult. | Description
+--------- | --------------- | ----- | --------------
+tree      | [[fr.treenode]] |  0..1 | assembled tree
+template  | String          |     1 | rendering template
+filename  | String          |     1 | output artifact filename
 
-__Output__
+[Output]{.underline}
 
-The output of the function must be well-formed deliverable with `filename` built on `template` parameter.
+Parameter Type     Mult. Description
+--------- -------- ----- --------------
+filename  String       1 output artifact filename
 
-__Flow__
+[Flow]{.underline}
 
-@@todo provide id for required functions and change steps with appropriate links
-
-1. `tree` = [[fr.assemble]] unless `tree`
-2. load template body from `template`
-3. backup `filename` to `<filename>~`
-4. render `template` for each node of `tree` into `filename`
+1. Assemble the artifact tree by invoking [[fr.assemble]] unless `tree` parameter provided
+2. Load template body from `template`
+3. Backup `filename` to `<filename>~` when esists
+4. Render `template` for each node of `tree`
+5. Save rendered template into `filename`
+6. Return `filename`

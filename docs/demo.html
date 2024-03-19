@@ -11,11 +11,8 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
+    ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -23,7 +20,7 @@
     .display.math{display: block; text-align: center; margin: 0.5rem auto;}
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +31,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -118,10 +115,12 @@ href="https://github.com/nvoynov/marko">Github</a></span>
 <ul>
 <li><a href="#uc" id="toc-uc">Use Cases</a>
 <ul>
-<li><a href="#uc-create-project" id="toc-uc-create-project">Create a new
+<li><a href="#uc-create" id="toc-uc-create">Create a new
 project</a></li>
-<li><a href="#uc-general-flow" id="toc-uc-general-flow">General Marko
-Flow</a></li>
+<li><a href="#uc-manage" id="toc-uc-manage">Manage artifact
+sources</a></li>
+<li><a href="#uc-compile" id="toc-uc-compile">Compile artifact</a></li>
+<li><a href="#uc-automate" id="toc-uc-automate">Automate tasks</a></li>
 </ul></li>
 </ul></li>
 <li><a href="#fr" id="toc-fr">Functional Requirements</a>
@@ -143,7 +142,7 @@ Markup</a></li>
 <li><a href="#fr-markup-04" id="toc-fr-markup-04">Inject Id</a></li>
 <li><a href="#fr-markup-05" id="toc-fr-markup-05">Checking Tree</a></li>
 </ul></li>
-<li><a href="#fr-storage" id="toc-fr-storage">Sources Storage</a></li>
+<li><a href="#fr-create" id="toc-fr-create">Create project</a></li>
 <li><a href="#fr-assemble" id="toc-fr-assemble">Assemble
 artifact</a></li>
 <li><a href="#fr-compile" id="toc-fr-compile">Compile artifact</a></li>
@@ -164,86 +163,75 @@ project</a></li>
 </ul></li>
 <li><a href="#as" id="toc-as">Assumptions and Dependencies</a>
 <ul>
-<li><a href="#as-01" id="toc-as-01">.01</a></li>
-<li><a href="#as-02" id="toc-as-02">.02</a></li>
-<li><a href="#as-03" id="toc-as-03">.03</a></li>
+<li><a href="#as-01" id="toc-as-01">Graphical User Interface</a></li>
+<li><a href="#as-02" id="toc-as-02">Versions and Access
+management</a></li>
+<li><a href="#as-03" id="toc-as-03">Deliverables Publishing</a></li>
 </ul></li>
 </ul>
 </nav>
 <h1 id="intro">Intro</h1>
 <h2 id="intro-01">Purpose</h2>
 <p>The main purpose of this document is to provide a comprehensive demo
-project for Marko gem. The other technical purpose is to have Marko
+project for Marko Gem. The other technical purpose is to have Marko
 Sandbox for testing and development.</p>
 <h2 id="intro-02">Problem</h2>
-<p>There are a few alternatives for authors who work on bulky software
-artifacts like requirements specification. They can apply one of the
-following tools</p>
+<p><strong>The problem of</strong> of managing large structured texts
+(articles, books, specific structured documents)
+<strong>affects</strong> the authors of such texts <strong>the impact of
+which is</strong> the text management process itself became a pain as
+the text groves and the structure evolves <strong>a successful solution
+would be</strong> a software that provides</p>
 <ul>
-<li>a particular requirements management tool, like Doors</li>
-<li>a Word Processor, like Microsoft Word, Libra Office, or Google
-Docs;</li>
-<li>an elaborate publishing system, like Tex;</li>
-<li>or just using a simple Wiki system, like Confluence or Redmine.</li>
-</ul>
-<p>A requirements management tool might seem to be the best choice there
-because it is tailored exactly for the required process. But it
-certainly will be a “hard way” from a cost and time perspective, an
-elaborate and expensive solution requiring personnel to be trained and
-vendor support.</p>
-<p>Although deliverable artifacts could be seen as a usual document
-structured and expressed in headers and paragraphs, the meaning of each
-of those can be different. So word processors and wiki systems might be
-the perfect choice for presenting artifact deliverables, but they lack
-of semantic fails for content development and management. The best of
-them provide a scripting language for document processing, but it is
-usually too complicated and again lacks particular entities’ semantics
-(stakeholders, requirements, constraints, etc.)</p>
-<p>Designing documents of hundreds of pages in word processors brings
-some peculiar drawbacks. The software tends to become “bulky” in
-operating, consuming too many system resources and responding with
-delays; tend to be fragile with styles.</p>
-<p><strong>The problem of</strong> the lack of simple tools and
-approaches for writing software artifacts <strong>affects</strong>
-technical writers who develop and manage the artifacts <strong>the
-impact of which is</strong> they tend to choose a publishing tool or a
-word processor that does not fit well to work on software artifacts
-causing lots of manual work and maybe other confusing things like
-“bulky” documents <strong>a successful solution would be</strong> the
-tool that will provide</p>
-<ul>
-<li>a plain text markup for writing artifact items, that will be easy to
-read for humans, and processed by machines;<br />
-</li>
-<li>a “semantics” layer to distinguish artifact items (actors,
-requirements, etc.) from supported text</li>
-<li>the ability to automate tasks based on processing content according
-to its semantic value;</li>
-<li>the ability to build a convenient presentation of the artifact (pdf,
-doc, odt);</li>
-<li>will not depend on OS platform and any proprietary format or
-software.</li>
+<li>a simple markup that is easy to write and read by humans and
+machines</li>
+<li>the ability to manage the text as a bunch of structured separate
+files</li>
+<li>the ability to publish the text and share it audience</li>
+<li>the ability to collaborate between the authors working together on
+the text</li>
+<li>the ability to automate some content processing tasks</li>
 </ul>
 <h2 id="intro-03">Product</h2>
-<p><strong>For</strong> authors of software artifacts
-<strong>who</strong> need a reliable and repeatable process of managing
-big software artifacts <strong>the</strong> Marko Markup Compiler is a
-free open source software <strong>that</strong> brings a “docs-as-code”
-approach with efficient plain markup for artifact sources,</p>
-<h2 id="intro-04">Scope</h2>
-<p>The developing system will consist of</p>
+<p><strong>For</strong> authors of large structured texts
+<strong>Who</strong> need simple reliable text management process
+<strong>The</strong> Marko Markup Compiler is a free text management
+scripting software <strong>That</strong> utilizes the docs-as-code
+approach <strong>Unlike</strong> other competitive approaches like using
+word processors, Wiki system, or dedicated content publishing systems
+<strong>Our product</strong> does not require any special environment
+and can be adopted in any text environment.</p>
+<p>The Marko provides you with:</p>
 <ul>
-<li>the simple plain markup for writing the artifact sources;</li>
-<li>the repository of artifact sources;</li>
-<li>the algorithm for assembling the artifact from sources;</li>
-<li>the markup for templates for publishing the artifact;</li>
-<li>the command line interface for compiling the artifact into
-deliverables based on the templates<br />
+<li>the simple markup based on Markdown, extended by tree hierarchy
+helpers</li>
+<li>the text repository is just a free directory structure inside the
+file system</li>
+<li>the text tree hierarchy of nodes that present your text pieces</li>
+<li>the ability to automate content processing tasks by providing a
+scripting layer</li>
+</ul>
+<p>Having large structured texts as just a bunch of plain text files,
+one can</p>
+<ul>
+<li>use any convenient text editor<br />
 </li>
-<li>the Ruby Gem that presents the artifact as the collection o items
-that can be easily visited for tasks automation;</li>
-<li>the demo project that will help the customers to adopt the approach
-and design their own solutions based on the approach.</li>
+<li>work together with other authors in the Git repository</li>
+<li>use any available text processing tools</li>
+</ul>
+<h2 id="intro-04">Scope</h2>
+<p>The developed system will provide the following components:</p>
+<ul>
+<li>the simple markup format with abilities to build a tree
+hierarchy</li>
+<li>the markup parser that will turn markup sources into programmable
+objects</li>
+<li>the markup tree assembler that will build a single tree
+hierarchy</li>
+<li>the markup tree compiler that will turn the markup tree into
+deliverables</li>
+<li>the Marko Promo project that will help the users adopt the
+approach</li>
 </ul>
 <h2 id="intro-05">Definitions</h2>
 <dl>
@@ -265,15 +253,12 @@ Guide</a></li>
 Manual</a></li>
 </ol>
 <h2 id="intro-07">Overview</h2>
-<p>The remaining sections of this document provide user- and functional
-requirements of the system.</p>
-<p>The <a href="#usr">Users</a> chapter introduces users of the
-system.</p>
-<p>The next chapter <a href="#ur">User Requirements</a> introduces users
-requirements that establish the context for the functional
-requirements.</p>
-<p>The following chapter <a href="#fr">Functional Requirements</a>
-describes detailed requirements for functions and user interfaces.</p>
+<p>The remaining sections of this document requirements to the system.
+The document structured the manner of software requirements
+specification, where one can find descriptions of <a
+href="#usr">Users</a>, <a href="#uc">Use Cases</a>, <a
+href="#fr">Functional Requirements</a>, and <a href="#ui">Interface
+Requirements</a>.</p>
 <h1 id="usr">Users</h1>
 <p>The users of the system are different people who play for authoring
 various sorts of technical documentation. It might be a technical
@@ -296,49 +281,108 @@ writer, business/systems analyst, developer, etc.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="uc-create-project">Create a new project</h3>
+<h3 id="uc-create">Create a new project</h3>
 <table>
 <tbody>
 <tr class="odd">
 <td><strong>Id</strong></td>
-<td>uc.create.project</td>
+<td>uc.create</td>
 </tr>
 </tbody>
 </table>
+<p>The scenario is used when the user wants to create a new Marko
+artifact project</p>
 <p><strong>Main Flow</strong></p>
 <ol type="1">
-<li>The user requests the system to create a new project passing a
-project folder for new project.</li>
-<li>The system checks for project folder to be unique. When folder with
-the same name exists already, the system reports it to the user and the
-scenario is finished.</li>
-<li>The system creates the project folder and furnish it with project
+<li>The user requests the system to create a new project passing the
+directory name for the project.</li>
+<li>The system checks the directory does not exist; directory des not
+exist.</li>
+<li>The system creates the directory and furnish it with basic Marko
 structure.</li>
+<li>The system reports to the user about created directories and
+files.</li>
+<li>The scenario is finished</li>
 </ol>
-<h3 id="uc-general-flow">General Marko Flow</h3>
+<p><strong>Extensions</strong></p>
+<p><u>2a</u> The directory exists: The system reports to the user that
+the directory exits. The scenario if finished.</p>
+<h3 id="uc-manage">Manage artifact sources</h3>
 <table>
 <tbody>
 <tr class="odd">
 <td><strong>Id</strong></td>
-<td>uc.general.flow</td>
+<td>uc.manage</td>
 </tr>
 </tbody>
 </table>
+<p><u>Outside the system</u> scenario of managing the artifact sources,
+templates, automated tasks.</p>
+<p><strong>Main Flow</strong></p>
+<p><u>Outside the system</u></p>
+<ol type="1">
+<li>The user creates, modifies, removes markup files inside
+<code>src</code> directory of Marko project (created by <a
+href="#uc-create">Create a new project</a> scenario.)</li>
+<li>The user creates, modifies, removes templates for the artifact
+compilation.</li>
+<li>The user creates, modifies, removes automation tasks.</li>
+</ol>
+<h3 id="uc-compile">Compile artifact</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Id</strong></td>
+<td>uc.compile</td>
+</tr>
+</tbody>
+</table>
+<p>The scenario is used when the user wants to compile the artifact from
+the artifact sources</p>
 <p><strong>Prerequisites</strong></p>
 <ol type="1">
-<li>The user inside Marko project (see <a
-href="#uc-create-project">Create a new project</a>)</li>
+<li>The user inside Marko project (see <a href="#uc-create">Create a new
+project</a>)</li>
 </ol>
 <p><strong>Main Flow</strong></p>
 <ol type="1">
-<li>The user creates and makes changes to the sources of the project.
-[outside the system]</li>
-<li>The user requests the system to <code>compile</code> the
-artifact.</li>
-<li>The system assembles the artifact from source files.</li>
-<li>The system checks the artifact and reports the errors to the user if
-any.</li>
-<li>The system returns the assembled artifact.</li>
+<li>The user requests the system to compile the project sources into the
+artifact passing compilation template.</li>
+<li>The system read the artifact sources and assembles it into the
+artifact tree; no errors detected.</li>
+<li>The system compiles the artifact tree into single artifact using
+provided template.</li>
+<li>The system reports compiled artifact filename to the user.</li>
+<li>The scenario is finished.</li>
+</ol>
+<p><strong>Extensions</strong></p>
+<p><u>2a</u> The system detected markup errors inside sources: The
+system reports the errors found to the user; the scenario is
+finished.</p>
+<p><u>2b</u> The system detected tree structure errors during the
+assembling stage: The system reports the errors found to the user; the
+scenario is finished.</p>
+<h3 id="uc-automate">Automate tasks</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Id</strong></td>
+<td>uc.automate</td>
+</tr>
+</tbody>
+</table>
+<p>Basically, Marko assembles artifacts from markup sources, but there
+are cases when user wants to add some information from other sources
+like UI/UML/ER design tools, some prepared data files in whatever it
+could be form. Sometimes the user wants to modify or remove some content
+inside the markup sources.</p>
+<p>Such tasks could be automated by intervening into the artifact tree
+between assemblage and compilation stages.</p>
+<p><strong>Main Flow</strong></p>
+<ol type="1">
+<li>The user design one or more automation scripts</li>
+<li>The user injects the automation scripts into compilation
+process</li>
 </ol>
 <h1 id="fr">Functional Requirements</h1>
 <table>
@@ -365,7 +409,7 @@ properties that provide the following attributes:</p>
 <tr class="header">
 <th style="text-align: left;">Property</th>
 <th style="text-align: left;">Type</th>
-<th>*..n</th>
+<th>Mult.</th>
 <th>Default</th>
 <th>Description</th>
 </tr>
@@ -383,7 +427,7 @@ properties that provide the following attributes:</p>
 <td style="text-align: left;">Node</td>
 <td>1</td>
 <td>null</td>
-<td>Parent node reference</td>
+<td>Parent node</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">title</td>
@@ -408,10 +452,10 @@ properties that provide the following attributes:</p>
 </tr>
 <tr class="even">
 <td style="text-align: left;">items</td>
-<td style="text-align: left;">Node</td>
-<td>0..n</td>
+<td style="text-align: left;">TreeNode</td>
+<td>0..N</td>
 <td>[]</td>
-<td>Child node reference</td>
+<td>Child nodes</td>
 </tr>
 </tbody>
 </table>
@@ -432,7 +476,7 @@ metadata attributes:</p>
 <tr class="header">
 <th style="text-align: left;">Attribute</th>
 <th style="text-align: left;">Type</th>
-<th>0..n</th>
+<th>Mult.</th>
 <th style="text-align: left;">Description</th>
 </tr>
 </thead>
@@ -452,8 +496,8 @@ metadata attributes:</p>
 <tr class="odd">
 <td style="text-align: left;">order_index</td>
 <td style="text-align: left;">String</td>
-<td>0..1</td>
-<td style="text-align: left;">Children ids delimited by space</td>
+<td>0..N</td>
+<td style="text-align: left;">Children IDs</td>
 </tr>
 </tbody>
 </table>
@@ -473,7 +517,7 @@ origin information:</p>
 <tr class="header">
 <th style="text-align: left;">Attribute</th>
 <th style="text-align: left;">Type</th>
-<th>0..n</th>
+<th>Mult.</th>
 <th style="text-align: left;">Description</th>
 </tr>
 </thead>
@@ -482,13 +526,13 @@ origin information:</p>
 <td style="text-align: left;">origin</td>
 <td style="text-align: left;">String</td>
 <td>1</td>
-<td style="text-align: left;">Source filename</td>
+<td style="text-align: left;">file name</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">lineno</td>
 <td style="text-align: left;">String</td>
 <td>1</td>
-<td style="text-align: left;">Number of line</td>
+<td style="text-align: left;">file line</td>
 </tr>
 </tbody>
 </table>
@@ -569,15 +613,15 @@ inside metadata as <a href="#fr-treenode-orig">Source Metadata</a>.</p>
 <thead>
 <tr class="header">
 <th>Parameter</th>
-<th style="text-align: left;">Type</th>
-<th>0..*</th>
+<th>Type</th>
+<th>Mult.</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>filename</td>
-<td style="text-align: left;">String</td>
+<td>String</td>
 <td>1</td>
 <td>filename</td>
 </tr>
@@ -588,16 +632,16 @@ inside metadata as <a href="#fr-treenode-orig">Source Metadata</a>.</p>
 <thead>
 <tr class="header">
 <th>Parameter</th>
-<th style="text-align: left;">Type</th>
-<th>0..*</th>
+<th>Type</th>
+<th>Mult.</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>node</td>
-<td style="text-align: left;">Node</td>
-<td>0..n</td>
+<td><a href="#fr-treenode">TreeNode</a></td>
+<td>0..N</td>
 <td>node parsed</td>
 </tr>
 </tbody>
@@ -619,17 +663,17 @@ Metadata</a>.</p>
 <thead>
 <tr class="header">
 <th>Parameter</th>
-<th style="text-align: left;">Type</th>
-<th>0..*</th>
+<th>Type</th>
+<th>Mult.</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>node</td>
-<td style="text-align: left;">Node</td>
-<td>0..n</td>
-<td>node array</td>
+<td><a href="#fr-treenode">TreeNode</a></td>
+<td>0..N</td>
+<td>node collection</td>
 </tr>
 </tbody>
 </table>
@@ -638,17 +682,17 @@ Metadata</a>.</p>
 <thead>
 <tr class="header">
 <th>Parameter</th>
-<th style="text-align: left;">Type</th>
-<th>0..*</th>
+<th>Type</th>
+<th>Mult.</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>node</td>
-<td style="text-align: left;">Node</td>
+<td><a href="#fr-treenode">TreeNode</a></td>
 <td>1</td>
-<td>root tree</td>
+<td>root node</td>
 </tr>
 </tbody>
 </table>
@@ -661,11 +705,10 @@ Metadata</a>.</p>
 </tr>
 </tbody>
 </table>
-<p>The system shall provide each node with unique node Id.</p>
-<p>Some nodes can already have ids from source file, especially those
-that referenced as parent or child and placed in separate files. For
-those nodes that still have empty id, the system must generate auto id
-0..99.</p>
+<p>The system shall provide each node with unique node Id. Some nodes
+can already have id from source files, especially those that referenced
+as parent or child and placed in separate files. For those nodes that
+still have empty id, the system must generate auto id 0..99.</p>
 <p>For example, when the system has assembled the tree</p>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># Artifact</span></span>
@@ -687,15 +730,15 @@ class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><
 <thead>
 <tr class="header">
 <th>Parameter</th>
-<th style="text-align: left;">Type</th>
-<th>0..*</th>
+<th>Type</th>
+<th>Mult.</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>root</td>
-<td style="text-align: left;">Node</td>
+<td><a href="#fr-treenode">TreeNode</a></td>
 <td>1</td>
 <td>root node</td>
 </tr>
@@ -725,23 +768,64 @@ index not found;</li>
 <li><code>unknown links</code>, finds nodes containing links but the
 links are not found.</li>
 </ul>
-<h2 id="fr-storage">Sources Storage</h2>
+<h2 id="fr-create">Create project</h2>
 <table>
 <tbody>
 <tr class="odd">
 <td><strong>Id</strong></td>
-<td>fr.storage</td>
+<td>fr.create</td>
 </tr>
 </tbody>
 </table>
-<p>The system shall provide a storage for artifact sources. The storage
-must provide the following features:</p>
-<ul>
-<li>Create a new project</li>
-<li>Remove project</li>
-<li>Get the list of project sources</li>
-<li>Get project source</li>
-</ul>
+<p>The system shall provide the function to create a new project.</p>
+<p><u>Input</u></p>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th style="text-align: left;">Type</th>
+<th>Mult.</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>directory</td>
+<td style="text-align: left;">string</td>
+<td>1</td>
+<td style="text-align: left;">project directory</td>
+</tr>
+</tbody>
+</table>
+<p><u>Output</u></p>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th style="text-align: left;">Type</th>
+<th>Mult.</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>filename</td>
+<td style="text-align: left;">string</td>
+<td>1..N</td>
+<td style="text-align: left;">created directory or filename</td>
+</tr>
+</tbody>
+</table>
+<p><u>Flow</u></p>
+<ol type="1">
+<li>Fail “directory exits” if the <code>directory</code> already
+exist</li>
+<li>Create <code>directory</code></li>
+<li>Create project structure<br />
+</li>
+<li>Create basic templates</li>
+<li>Return list of created directories and files</li>
+</ol>
 <h2 id="fr-assemble">Assemble artifact</h2>
 <table>
 <tbody>
@@ -751,40 +835,40 @@ must provide the following features:</p>
 </tr>
 </tbody>
 </table>
-<p>The system shall provide the function to assemble artifact.</p>
-<p><strong>Input</strong></p>
+<p>The system shall provide the function to assemble the artifact.</p>
+<p><u>Input</u></p>
 <ul>
-<li>NO</li>
+<li>NO PARAMETERS</li>
 </ul>
-<p><strong>Output</strong></p>
+<p><u>Output</u></p>
 <table>
 <thead>
 <tr class="header">
 <th>Parameter</th>
-<th style="text-align: left;">Type</th>
-<th>0..*</th>
-<th style="text-align: left;">Description</th>
+<th>Type</th>
+<th>Mult.</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>tree</td>
-<td style="text-align: left;">TreeNode</td>
+<td><a href="#fr-treenode">TreeNode</a></td>
 <td>1</td>
-<td style="text-align: left;">assembled tree</td>
+<td>assembled tree</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Flow</strong></p>
 <ol type="1">
-<li>get list of project sources</li>
-<li>parse sources buffering nodes and errors</li>
-<li>fail “parsing errors” if errors.any?</li>
-<li>assemble artifact from buffer of nodes</li>
-<li>generate and inject auto ids</li>
-<li>validate artifact buffering errors</li>
-<li>fail “tree errors” if errors.any?</li>
-<li>return artifact</li>
+<li>Get list of the project sources</li>
+<li>Parse sources collecting parsing errors.</li>
+<li>Fail with the list of parsing errors when any.</li>
+<li>Assemble the artifact tree based on id, parent, and order_index
+metadata collecting tree errors.</li>
+<li>Fail with the list of tree errors if any.</li>
+<li>Generate auto IDs for nodes without ID.</li>
+<li>Return artifact tree</li>
 </ol>
 <h2 id="fr-compile">Compile artifact</h2>
 <table>
@@ -797,107 +881,159 @@ must provide the following features:</p>
 </table>
 <p>The system shall provide the function to create deliverable
 artifact.</p>
-<p><strong>Input</strong></p>
+<p><u>Input</u></p>
 <table>
 <thead>
 <tr class="header">
 <th>Parameter</th>
-<th style="text-align: left;">Type</th>
-<th>0..*</th>
-<th style="text-align: left;">Description</th>
+<th>Type</th>
+<th>Mult.</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>tree</td>
-<td style="text-align: left;">TreeNode</td>
-<td>1</td>
-<td style="text-align: left;">assembled tree</td>
+<td><a href="#fr-treenode">TreeNode</a></td>
+<td>0..1</td>
+<td>assembled tree</td>
 </tr>
 <tr class="even">
 <td>template</td>
-<td style="text-align: left;">String</td>
+<td>String</td>
 <td>1</td>
-<td style="text-align: left;">ERB template</td>
+<td>rendering template</td>
 </tr>
+<tr class="odd">
+<td>filename</td>
+<td>String</td>
+<td>1</td>
+<td>output artifact filename</td>
+</tr>
+</tbody>
+</table>
+<p><u>Output</u></p>
+<table>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th style="text-align: left;">Type</th>
+<th>Mult.</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
 <tr class="odd">
 <td>filename</td>
 <td style="text-align: left;">String</td>
 <td>1</td>
-<td style="text-align: left;">filename</td>
+<td style="text-align: left;">output artifact filename</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Output</strong></p>
-<p>The output of the function must be well-formed deliverable with
-<code>filename</code> built on <code>template</code> parameter.</p>
-<p><strong>Flow</strong></p>
+<p><u>Flow</u></p>
 <ol type="1">
-<li><code>tree</code> = <a href="#fr-assemble">Assemble artifact</a>
-unless <code>tree</code></li>
-<li>load template body from <code>template</code></li>
-<li>backup <code>filename</code> to <code>&lt;filename&gt;~</code></li>
-<li>render <code>template</code> for each node of <code>tree</code> into
-<code>filename</code></li>
+<li>Assemble the artifact tree by invoking <a
+href="#fr-assemble">Assemble artifact</a> unless <code>tree</code>
+parameter provided</li>
+<li>Load template body from <code>template</code></li>
+<li>Backup <code>filename</code> to <code>&lt;filename&gt;~</code> when
+esists</li>
+<li>Render <code>template</code> for each node of <code>tree</code></li>
+<li>Save rendered template into <code>filename</code></li>
+<li>Return <code>filename</code></li>
 </ol>
 <h1 id="ui">Interface Requirements</h1>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Id</strong></td>
+<td>ui</td>
+</tr>
+</tbody>
+</table>
 <h2 id="ui-cli">Command-line interface</h2>
-<p>The system shall provide a command-line interface. The interface must
-provide the following commands:</p>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Id</strong></td>
+<td>ui.cli</td>
+</tr>
+</tbody>
+</table>
+<p>The system shall provide the command-line interface. The interface
+must provide the following commands:</p>
 <ul>
 <li><a href="#ui-cli-01">Create a new project</a></li>
 <li><a href="#ui-cli-02">Compile artifact</a></li>
 </ul>
 <h3 id="ui-cli-01">Create a new project</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Id</strong></td>
+<td>ui.cli.01</td>
+</tr>
+</tbody>
+</table>
 <p>The system shall provide the <code>new PROJECT</code> command. When
-the user requests the <code>new PROJECT</code> command, the system</p>
-<ul>
-<li>ensures that <code>PROJECT</code> folder does not exist or
-fails</li>
-<li>creates <code>PROJECT</code> folder and copies required files for
-new project</li>
-<li>reports the user about success</li>
-</ul>
+the user requests the <code>new PROJECT</code> command, the system must
+call <a href="#fr-create">Create project</a>.</p>
 <h3 id="ui-cli-02">Compile artifact</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Id</strong></td>
+<td>ui.cli.02</td>
+</tr>
+</tbody>
+</table>
 <p>The system shall provide the
 <code>compile [-t TEMPALTE] [-o FILENAME]</code> command. When the user
-requests the <code>compile</code> command, the system</p>
-<ul>
-<li>ensures that current directory is <code>Marko Project</code>
-directory, or fails</li>
-<li>load <code>template</code>,
-<ul>
-<li>load from the <code>TEMPLATE</code> parameter when provided</li>
-<li>or load default template when not</li>
-</ul></li>
-<li>creates <code>tree</code> by using <a href="#fr-assemble">Assemble
-artifact</a></li>
-<li>compiles the tree by <a href="#fr-compile">Compile
-artifact</a>.(<code>tree</code>, <code>template</code>,
-<code>filename</code>)</li>
-<li>reports the user about success</li>
-</ul>
+requests the <code>compile</code> command, the system must call <a
+href="#fr-compile">Compile artifact</a>.</p>
 <h2 id="ui-gem">Gem interface</h2>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Id</strong></td>
+<td>ui.gem</td>
+</tr>
+</tbody>
+</table>
 <p>The system shall provide Ruby Gem with the following functions</p>
 <ul>
 <li><a href="#ui-gem-01">Marko.assemble</a></li>
 <li><a href="#ui-gem-02">Marko.compile</a></li>
 </ul>
 <h3 id="ui-gem-01">Marko.assemble</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Id</strong></td>
+<td>ui.gem.01</td>
+</tr>
+</tbody>
+</table>
 <h3 id="ui-gem-02">Marko.compile</h3>
+<table>
+<tbody>
+<tr class="odd">
+<td><strong>Id</strong></td>
+<td>ui.gem.02</td>
+</tr>
+</tbody>
+</table>
 <h1 id="as">Assumptions and Dependencies</h1>
-<h2 id="as-01">.01</h2>
-<p>The system requires a user interface for managing markup sources. It
-is assumed that users utilize any text editor of their choice.</p>
-<h2 id="as-02">.02</h2>
-<p>The system requires tools for collaboration on artifacts by several
-authors simultaneously. Because of the plain text nature of the markup
-sources, It is assumed using Git for managing the artifact sources
-repository.</p>
-<h2 id="as-03">.03</h2>
-<p>The system requires the compilation of artifacts into deliverables in
-form of well-supported formats like pdf, doc, etc. It is assumed using
-Pandoc for creating deliverables.</p>
+<h2 id="as-01">Graphical User Interface</h2>
+<p>The user will utilize his preferred text editor so no other UI
+requirement</p>
+<h2 id="as-02">Versions and Access management</h2>
+<p>The user will utilize Git so no other version management or access
+management requirements</p>
+<h2 id="as-03">Deliverables Publishing</h2>
+<p>The user will publish deliverables by using Pandoc so there are no
+publishing requirements</p>
 <div id="footer">
 <hr />
 <p>© 2022-2024 <a href="http://nvoynov.github.io/">nvoynov</a></p>

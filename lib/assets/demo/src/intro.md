@@ -1,34 +1,18 @@
 # Purpose
 {{parent: intro}}
 
-The main purpose of this document is to provide a comprehensive demo project for Marko gem. The other technical purpose is to have Marko Sandbox for testing and development.
+The main purpose of this document is to provide a comprehensive demo project for Marko Gem. The other technical purpose is to have Marko Sandbox for testing and development.
 
 # Problem
 {{parent: intro}}
 
-There are a few alternatives for authors who work on bulky software artifacts like requirements specification. They can apply one of the following tools
+__The problem of__ of managing large structured texts (articles, books, specific structured documents) __affects__ the authors of such texts __the impact of which is__ the text management process itself became a pain as the text groves and the structure evolves __a successful solution would be__ a software that provides
 
-@@todo find a few popular requirements management tools
-@@todo find a few popular Tex alternatives
-
-- a particular requirements management tool, like Doors
-- a Word Processor, like Microsoft Word, Libra Office, or Google Docs;
-- an elaborate publishing system, like Tex;
-- or just using a simple Wiki system, like Confluence or Redmine.
-
-A requirements management tool might seem to be the best choice there because it is tailored exactly for the required process. But it certainly will be a "hard way" from a cost and time perspective, an elaborate and expensive solution requiring personnel to be trained and vendor support.
-
-Although deliverable artifacts could be seen as a usual document structured and expressed in headers and paragraphs, the meaning of each of those can be different. So word processors and wiki systems might be the perfect choice for presenting artifact deliverables, but they lack of semantic fails for content development and management. The best of them provide a scripting language for document processing, but it is usually too complicated and again lacks particular entities' semantics (stakeholders, requirements, constraints, etc.)
-
-Designing documents of hundreds of pages in word processors brings some peculiar drawbacks. The software tends to become "bulky" in operating, consuming too many system resources and responding with delays; tend to be fragile with styles.
-
-__The problem of__ the lack of simple tools and approaches for writing software artifacts __affects__ technical writers who develop and manage the artifacts __the impact of which is__ they tend to choose a publishing tool or a word processor that does not fit well to work on software artifacts causing lots of manual work and maybe other confusing things like "bulky" documents __a successful solution would be__ the tool that will provide
-
-- a plain text markup for writing artifact items, that will be easy to read for humans, and processed by machines;  
-- a "semantics" layer to distinguish artifact items (actors, requirements, etc.) from supported text
-- the ability to automate tasks based on processing content according to its semantic value;
-- the ability to build a convenient presentation of the artifact (pdf, doc, odt);
-- will not depend on OS platform and any proprietary format or software.
+- a simple markup that is easy to write and read by humans and machines
+- the ability to manage the text as a bunch of structured separate files
+- the ability to publish the text and share it audience
+- the ability to collaborate between the authors working together on the text
+- the ability to automate some content processing tasks
 
 @@skip
 
@@ -42,31 +26,31 @@ __a successful solution would be__ [list some key benefits of a successful solut
 # Product
 {{parent: intro}}
 
-@@todo redesign the product statement for "who" section
+__For__ authors of large structured texts __Who__ need simple reliable text management process __The__ Marko Markup Compiler is a free text management scripting software __That__ utilizes the docs-as-code approach __Unlike__ other competitive approaches like using word processors, Wiki system, or dedicated content publishing systems __Our product__ does not require any special environment and can be adopted in any text environment.
 
-__For__ authors of software artifacts __who__ need a reliable and repeatable process of managing big software artifacts __the__ Marko Markup Compiler is a free open source software __that__ brings a "docs-as-code" approach with efficient plain markup for artifact sources, @@todo templates, CLI, Rake ..
+The Marko provides you with:
 
-@@skip
+- the simple markup based on Markdown, extended by tree hierarchy helpers
+- the text repository is just a free directory structure inside the file system
+- the text tree hierarchy of nodes that present your text pieces
+- the ability to automate content processing tasks by providing a scripting layer
 
-__For__ [target customer]
-__Who__ [statement of the need or opportunity]
-__The__ [product name] is a [product category]
-__That__ [key benefit, compelling reason to buy]
-__Unlike__ [primary competitive alternative]
-__Our product__ [statement of primary differentiation]
+Having large structured texts as just a bunch of plain text files, one can
+
+- use any convenient text editor  
+- work together with other authors in the Git repository
+- use any available text processing tools
 
 # Scope
 {{parent: intro}}
 
-The developing system will consist of
+The developed system will provide the following components:
 
-- the simple plain markup for writing the artifact sources;
-- the repository of artifact sources;
-- the algorithm for assembling the artifact from sources;
-- the markup for templates for publishing the artifact;
-- the command line interface for compiling the artifact into deliverables based on the templates  
-- the Ruby Gem that presents the artifact as the collection o items that can be easily visited for tasks automation;
-- the demo project that will help the customers to adopt the approach and design their own solutions based on the approach.
+- the simple markup format with abilities to build a tree hierarchy
+- the markup parser that will turn markup sources into programmable objects
+- the markup tree assembler that will build a single tree hierarchy
+- the markup tree compiler that will turn the markup tree into deliverables
+- the Marko Promo project that will help the users adopt the approach
 
 # Definitions
 {{parent: intro}}
@@ -89,10 +73,4 @@ ERB
 # Overview
 {{parent: intro}}
 
-The remaining sections of this document provide user- and functional requirements of the system.
-
-The [[usr]] chapter introduces users of the system.
-
-The next chapter [[ur]] introduces users requirements that establish the context for the functional requirements.
-
-The following chapter [[fr]] describes detailed requirements for functions and user interfaces.
+The remaining sections of this document requirements to the system. The document structured the manner of software requirements specification, where one can find descriptions of [[usr]], [[uc]], [[fr]], and [[ui]].

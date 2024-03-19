@@ -12,11 +12,8 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
+    ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
@@ -57,14 +54,23 @@ href="https://github.com/nvoynov/marko">Github</a></span>
 </nav>
 <h2 id="todo">TODO</h2>
 <ul class="task-list">
-<li><label><input type="checkbox" />add order_index to
-Artifact?</label></li>
+<li><input type="checkbox" />Plugable -&gt; Plugin; compiler, parser,
+validator, storage are Plugins; move to plugins</li>
+<li><input type="checkbox" />redesing demo content and updata Github
+Pages</li>
+<li><input type="checkbox" />sancho:serve maps “/” to index.html</li>
+<li><input type="checkbox" />add order_index to Artifact?</li>
 </ul>
 <h2 id="unreleased">[Unreleased]</h2>
 <ul>
 <li>updated Sancho</li>
 <li>removed “docs” branch</li>
 <li>some tree_node.rb methods optimization</li>
+<li>demo artifact for Github Pages
+<ul>
+<li>new mkdemo rake task that renders demo copies it into DEMO.md</li>
+<li>DEMO.md added to sancho.yml</li>
+</ul></li>
 </ul>
 <h2 id="section">[0.3.0] - 2023-11-22</h2>
 <ul>
