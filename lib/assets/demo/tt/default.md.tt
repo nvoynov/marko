@@ -1,0 +1,14 @@
+%# Marko default template
+%
+% unless defined?(render)
+%
+%   def render(n)
+%     meta = %w[ur fr].any?{|t| n.id == t || n.belongs_to?(t)}
+%     meta == true ? n.text : [n.topic, n.body].reject(&:empty?).join("\n\n") + "\n\n"
+%   end
+%
+% end
+%
+% @model.each do |node|
+<%= render(node) %>
+% end

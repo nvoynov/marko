@@ -1,6 +1,7 @@
 domain: nvoynov.github.io/marko
 title: Marko Markup Compiler
 pages:
-- README.md
-- CHANGELOG.md
-- STORY.md
+  - README.md
+  - CHANGELOG.md
+  - DEMO.md
+  - STORY.md
